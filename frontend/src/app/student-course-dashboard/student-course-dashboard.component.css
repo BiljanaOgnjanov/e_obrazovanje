@@ -1,0 +1,27 @@
+.tab-container {
+  margin-top: 20px;
+}
+
+.tab-header {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tab-header button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #2C3E50;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tab-header button:hover {
+  background-color: #34495E;
+}
+
+.tab-header button.active {
+  background-color: #123;
+}

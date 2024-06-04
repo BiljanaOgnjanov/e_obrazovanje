@@ -1,0 +1,127 @@
+<h3 class="my-4">Pregled svih predmeta</h3>
+
+<div class="tab-container">
+  <div class="tab-header">
+
+    <button (click)="selectTab('trenutna')" [class.active]="selectedTab === 'trenutna'">Trenutna Praćenja</button>
+    <button (click)="selectTab('polozeni')" [class.active]="selectedTab === 'polozeni'">Položeni Ispiti</button>
+    <button (click)="selectTab('nepolozeni')" [class.active]="selectedTab === 'nepolozeni'">Neuspesna polaganja</button>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'polozeni'">
+    <table border="1" *ngIf="polozeniIspiti.length > 0; else nemaPracenja" class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Naziv predmeta</th>
+          <th>Ocena</th>
+          <th>Broj kredita(ESPB)</th>
+          <th>Godina predmeta</th>
+          <th>Rok</th>
+          <th>Detalji</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pracenje of polozeniIspiti; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="text-left">{{ pracenje.imePredmeta }}</td>
+          <td class="text-left">{{ pracenje.ocena }}</td>
+          <td class="text-left">{{ pracenje.brojKredita }}</td>
+          <td class="text-left">{{ pracenje.godina}}.</td>
+          <td class="text-left"> Jun </td>
+          <td class="text-left">
+            <button (click)="toggleDetails(i)">Detalji</button>
+            <div *ngIf="expandedDetailsIndex === i">
+            </div>
+          </td>
+        </tr>
+      </tbody>
+
+    </table>
+    <div *ngIf="expandedDetailsIndex !== -1">
+      <hr>
+      <p>Detalji o polozenom ispitu:</p>
+      <div *ngIf="polozeniIspiti.length > 0">
+        <p>{{formatDetails(polozeniIspiti[expandedDetailsIndex].predispitneObaveze, polozeniIspiti[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}</p>
+      </div>
+    </div>
+    <hr>
+    <h6>Ukupno ESPBa: {{mojiEspb}}</h6>
+    <h6>Ukupno polozenih ispita: {{brPolozenihIspita}}</h6>
+    <h6>Prosecna ocena:{{prosecnaOcena| number: '1.2-2'}}</h6>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'nepolozeni'">
+    <table border="1" *ngIf="nepolozeniIspiti.length > 0; else nemaPracenja" class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Naziv predmeta</th>
+          <th>Ocena</th>
+          <th>Broj kredita(ESPB)</th>
+          <th>Godina predmeta</th>
+          <th>Detalji</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pracenje of nepolozeniIspiti; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="text-left">{{ pracenje.imePredmeta }}</td>
+          <td class="text-left">{{ pracenje.ocena }}</td>
+          <td class="text-left">{{ pracenje.brojKredita }}</td>
+          <td class="text-left">{{ pracenje.godina}}.</td>
+          <td class="text-left">
+            <button (click)="toggleDetails(i)">Detalji</button>
+            <div *ngIf="expandedDetailsIndex === i">
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="expandedDetailsIndex !== -1">
+      <hr>
+      <p>Detalji o nepolozenom ispitu:</p>
+      <div *ngIf="polozeniIspiti.length > 0">
+        <p>{{formatDetails(nepolozeniIspiti[expandedDetailsIndex].predispitneObaveze, nepolozeniIspiti[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content" *ngIf="selectedTab === 'trenutna'">
+    <table border="1" *ngIf="trenutnaPracenja.length > 0; else nemaPracenja" class="table table-bordered table-striped table-hover">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Naziv predmeta</th>
+          <th>Broj kredita(ESPB)</th>
+          <th>Godina predmeta</th>
+          <th>Detalji</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pracenje of trenutnaPracenja; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td class="text-left">{{ pracenje.imePredmeta}}</td>
+          <td class="text-left">{{ pracenje.brojKredita}}</td>
+          <td class="text-left">{{ pracenje.godina}}.</td>
+          <td class="text-left">
+            <button (click)="toggleDetails(i)">Detalji</button>
+            <div *ngIf="expandedDetailsIndex === i">
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="expandedDetailsIndex !== -1">
+      <p>Informacije o ispitu:</p>
+    <div *ngIf="trenutnaPracenja.length > 0">
+        <p>{{formatDetails(trenutnaPracenja[expandedDetailsIndex].predispitneObaveze, trenutnaPracenja[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}</p>
+      </div>
+  </div>
+  </div>
+</div>
+
+<ng-template #nemaPracenja>
+  Nema istorije ispita.
+</ng-template>

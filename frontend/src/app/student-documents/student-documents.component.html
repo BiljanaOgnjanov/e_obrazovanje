@@ -1,0 +1,26 @@
+<h3 class="my-4">Pregled svih dokumenata</h3>
+<table border="1" *ngIf="dkmnti.length > 0; else nemaDokumenata" class="table table-bordered table-striped table-hover">
+  <thead class="thead-dark">
+  <tr>
+    <th>Naziv dokumenta</th>
+    <th>Tip dokumenta</th>
+    <th>Id Dokumenta</th>
+    <th>Preuzimanje</th>
+  </tr>
+</thead>
+  <tr *ngFor="let d of dkmnti">
+    <td class="text-left">{{d.nazivDokumenta}}</td>
+    <td class="text-left">{{d.tipDokumenta}}</td>
+    <td class="text-left">{{d.idDokumenta}}</td>
+    <td class="text-left">link</td>
+  </tr>
+</table>
+<hr>
+<h5>Dodaj Novi Dokument</h5>
+<input type="file" (change)="onFileSelected($event)" />
+<button (click)="onUpload()">Upload Document</button>
+<ng-template #nemaDokumenata>
+  Nema uploadovanih dokumenata.
+</ng-template>
+
+

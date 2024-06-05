@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 
 
@@ -16,55 +17,56 @@ public class Uplate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_uplate")
-    protected int id_uplate;
+    private int idUplate;
 
     @Column(name = "svrha_uplate")
-    protected String svrha_uplate;
+    private String svrhaUplate;
 
     @Column(name = "korisnicko_ime")
-    protected String korisnicko_ime;
+    private String korisnickoIme;
 
     @Column(name = "iznos")
-    protected int iznos;
+    private int iznos;
 
     @Column(name = "datum")
-    protected String datum;
+    private String datum;
 
     @ManyToOne
     @JoinColumn(name = "korisnicko_ime", referencedColumnName = "korisnicko_ime", insertable = false, updatable = false)
+    @JsonIgnore
     private Student student;
 
     public Uplate(){}
 
     public Uplate(int id_uplate, String svrha_uplate, String korisnicko_ime, int iznos, String datum){
-        this.id_uplate=id_uplate;
-        this.svrha_uplate = svrha_uplate;
-        this.korisnicko_ime=korisnicko_ime;
+        this.idUplate=id_uplate;
+        this.svrhaUplate = svrha_uplate;
+        this.korisnickoIme=korisnicko_ime;
         this.iznos=iznos;
         this.datum=datum;
     }
 
     public int getIdUplate() {
-        return id_uplate;
+        return idUplate;
     }
 
     public void setIdUplate(int id_uplate) {
-        this.id_uplate = id_uplate;
+        this.idUplate = id_uplate;
     }
-    public String getSvrha_uplate() {
-        return svrha_uplate;
-    }
-
-    public void setSvrha_uplate(String svrha_uplate) {
-        this.svrha_uplate = svrha_uplate;
+    public String getSvrhaUplate() {
+        return svrhaUplate;
     }
 
-    public String getKorisnicko_ime() {
-        return korisnicko_ime;
+    public void setSvrhaUplate(String svrha_uplate) {
+        this.svrhaUplate = svrha_uplate;
     }
 
-    public void setKorisnicko_ime(String korisnicko_ime) {
-        this.korisnicko_ime = korisnicko_ime;
+    public String getKorisnickoIme() {
+        return korisnickoIme;
+    }
+
+    public void setKorisnickoIme(String korisnicko_ime) {
+        this.korisnickoIme = korisnicko_ime;
     }
     public int getIznos() {
         return iznos;
@@ -79,6 +81,13 @@ public class Uplate {
 
     public void setDatum(String datum) {
         this.datum = datum;
+    }
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
     }
 }
 

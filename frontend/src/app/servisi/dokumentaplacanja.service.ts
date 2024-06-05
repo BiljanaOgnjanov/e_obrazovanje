@@ -21,6 +21,6 @@ export class DokumentaplacanjaService {
   }
 
   uploadDocument(uploadData: FormData): Observable<any> {
-    return this.http.post(`${this.url}/upload`, uploadData);
+    return this.http.post<any>(`${this.url}/dokumenti/upload`, uploadData);
   }
 }

@@ -1,50 +1,79 @@
 package com.example.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "dokumenta")
 public class Dokument {
-    protected int id_dokumenta;
-    protected String korisnicko_ime;
-    protected String naziv_dokumenta;
-    protected String tip_dokumenta;
-    protected String putanja;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_dokumenta")
+    private int idDokumenta;
+
+    @Column(name = "korisnicko_ime")
+    private String korisnickoIme;
+
+    @Column(name = "naziv_dokumenta")
+    private String nazivDokumenta;
+
+    @Column(name = "tip_dokumenta")
+    private String tipDokumenta;
+
+    @Column(name = "putanja")
+    private String putanja;
+
+    @ManyToOne
+    @JoinColumn(name = "korisnicko_ime", referencedColumnName = "korisnicko_ime", insertable = false, updatable = false)
+    @JsonIgnore
+    private Student student;
 
     public Dokument(){}
 
     public Dokument(int id_dokumenta, String korisnicko_ime, String naziv_dokumenta, String tip_dokumenta, String putanja){
-        this.id_dokumenta=id_dokumenta;
-        this.korisnicko_ime=korisnicko_ime;
-        this.naziv_dokumenta=naziv_dokumenta;
-        this.tip_dokumenta=tip_dokumenta;
+        this.idDokumenta=id_dokumenta;
+        this.korisnickoIme=korisnicko_ime;
+        this.nazivDokumenta=naziv_dokumenta;
+        this.tipDokumenta=tip_dokumenta;
         this.putanja =putanja;
     }
 
     public int getIdDokumenta() {
-        return id_dokumenta;
+        return idDokumenta;
     }
 
     public void setIdDokumenta(int id_dokumenta) {
-        this.id_dokumenta = id_dokumenta;
+        this.idDokumenta = id_dokumenta;
     }
 
-    public String getKorisnicko_ime() {
-        return korisnicko_ime;
+    public String getKorisnickoIme() {
+        return korisnickoIme;
     }
 
-    public void setKorisnicko_ime(String korisnicko_ime) {
-        this.korisnicko_ime = korisnicko_ime;
+    public void setKorisnickoIme(String korisnicko_ime) {
+        this.korisnickoIme = korisnicko_ime;
     }
     public String getNazivDokumenta() {
-        return naziv_dokumenta;
+        return nazivDokumenta;
     }
 
     public void setNazivDokumenta(String naziv_dokumenta) {
-        this.naziv_dokumenta = naziv_dokumenta;
+        this.nazivDokumenta = naziv_dokumenta;
     }
     public String getTipDokumenta() {
-        return tip_dokumenta;
+        return tipDokumenta;
     }
 
     public void setTipDokumenta(String tip_dokumenta) {
-        this.tip_dokumenta = tip_dokumenta;
+        this.tipDokumenta = tip_dokumenta;
     }
     public String getPutanja() {
         return putanja;
@@ -53,7 +82,13 @@ public class Dokument {
     public void setPutanja(String putanja) {
         this.putanja = putanja;
     }
+    //public Student getStudent() {
+    //    return student;
+    //}
 
+    //public void setStudent(Student student) {
+     //   this.student = student;
+    //}
 
 
 }

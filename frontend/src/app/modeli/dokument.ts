@@ -1,8 +1,8 @@
 export class Dokument{
-  id_dokumenta:number = 0;
-  korisnicko_ime:string = 'default';
-  naziv_dokumenta:string ='123';
-  tip_dokumenta:string ='';
+  idDokumenta:number = 0;
+  korisnickoIme:string = 'default';
+  nazivDokumenta:string ='123';
+  tipDokumenta:string ='';
   putanja:string ='';
 
 }

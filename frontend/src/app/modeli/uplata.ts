@@ -1,7 +1,7 @@
 export class Uplata{
-  id_uplate:number = 0;
-  svrha_uplate:String = '';
-  korisnicko_ime:string = '';
+  idUplate:number = 0;
+  svrhaUplate:String = '';
+  korisnickoIme:string = '';
   iznos:string ='';
   datum:string ='';
 }

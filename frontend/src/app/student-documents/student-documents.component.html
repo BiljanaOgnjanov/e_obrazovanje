@@ -17,8 +17,14 @@
 </table>
 <hr>
 <h5>Dodaj Novi Dokument</h5>
-<input type="file" (change)="onFileSelected($event)" />
-<button (click)="onUpload()">Upload Document</button>
+<input type="file" (change)="onFileSelected($event)">
+<input type="text" [(ngModel)]="documentName" placeholder="Unesite ime dokumenta">
+<select [(ngModel)]="documentType">
+  <option value="diploma">Diploma</option>
+  <option value="obrazac">Obrazac</option>
+  <option value="ostalo">Ostalo</option>
+</select>
+<button (click)="uploadDocument()">Postavi dokument</button>
 <ng-template #nemaDokumenata>
   Nema uploadovanih dokumenata.
 </ng-template>

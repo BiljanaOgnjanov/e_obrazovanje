@@ -14,6 +14,8 @@ export class StudentDocumentsComponent implements OnInit {
   ulogovan: Student =new Student();
   dkmnti:Dkmnt[] = [];
   selectedFile: File| null = null;
+  documentName: string = '';
+  documentType: string = 'ostalo';
 
   constructor(private http: HttpClient, private dokumentiplacanjaservis: DokumentaplacanjaService){}
 
@@ -22,7 +24,7 @@ export class StudentDocumentsComponent implements OnInit {
     if (x != null) {
       this.ulogovan = JSON.parse(x);
 
-      this.dokumentiplacanjaservis.dokumentiKorisnika(this.ulogovan.korisnicko_ime).subscribe(data =>{
+      this.dokumentiplacanjaservis.dokumentiKorisnika(this.ulogovan.username).subscribe(data =>{
         this.dkmnti = data;
       })
     }
@@ -31,20 +33,27 @@ export class StudentDocumentsComponent implements OnInit {
     this.selectedFile = event.target.files[0];
   }
 
-  onUpload(): void {
-    if (this.selectedFile && this.ulogovan.korisnicko_ime) {
+  uploadDocument(): void {
+    if (this.selectedFile && this.ulogovan.username && this.documentName) {
+      const fileName = `${this.ulogovan.username}_${this.documentName}`;
       const uploadData = new FormData();
-      const documentName = prompt('Enter document name');
-      if (documentName) {
-        const fileName = `${this.ulogovan.korisnicko_ime}_${documentName}`;
-        uploadData.append('file', this.selectedFile, fileName);
+      uploadData.append('file', this.selectedFile, fileName);
+      uploadData.append('korisnickoIme', this.ulogovan.username);
+      uploadData.append('nazivDokumenta', this.documentName);
+      uploadData.append('tipDokumenta', this.documentType);
 
-        this.dokumentiplacanjaservis.uploadDocument(uploadData).subscribe(response => {
+      this.dokumentiplacanjaservis.uploadDocument(uploadData).subscribe(
+        response => {
           console.log('Upload response:', response);
-        });
-      }
+          // Handle success response
+        },
+        error => {
+          console.error('Error uploading document:', error);
+          // Handle error response
+        }
+      );
     } else {
-      alert('No file selected or user not logged in');
+      alert('No file selected, document name missing, or user not logged in');
     }
   }
 

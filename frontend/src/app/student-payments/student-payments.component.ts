@@ -21,7 +21,7 @@ export class StudentPaymentsComponent implements OnInit {
     if (x != null) {
       this.ulogovan = JSON.parse(x);
 
-      this.dokumentiplacanjaservis.uplateKorisnika(this.ulogovan.korisnicko_ime).subscribe(data =>{
+      this.dokumentiplacanjaservis.uplateKorisnika(this.ulogovan.username).subscribe(data =>{
         this.uplate = data;
       })
     }

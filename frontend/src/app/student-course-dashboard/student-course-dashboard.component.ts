@@ -30,7 +30,7 @@ export class StudentCourseDashboardComponent implements OnInit {
     if (x != null) {
       this.ulogovan = JSON.parse(x);
 
-      this.predmetiservis.svaPracenjaPredmeta(this.ulogovan.korisnicko_ime).subscribe(data =>{
+      this.predmetiservis.svaPracenjaPredmeta(this.ulogovan.username).subscribe(data =>{
         this.svaPracenja = data;
         this.razvrstavanjePracenja();
       })

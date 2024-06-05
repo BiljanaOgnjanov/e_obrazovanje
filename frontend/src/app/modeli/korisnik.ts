@@ -1,5 +1,5 @@
 export class Korisnik{
-  korisnicko_ime: string='';
+  username: string='';
   lozinka: string ='';
   ime: string ='';
   prezime: string ='';

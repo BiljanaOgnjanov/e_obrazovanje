@@ -40,7 +40,7 @@ export class StudentCourseDashboardComponent implements OnInit {
   razvrstavanjePracenja():void{
   for (let i = 0; i < this.svaPracenja.length; i++) {
     const predmet = this.svaPracenja[i];
-    if (predmet.ocena === 4) {
+    if (predmet.ocena === null) {
         this.trenutnaPracenja.push(predmet);
       } else if (predmet.ocena === 5) {
         this.nepolozeniIspiti.push(predmet);

@@ -1,23 +1,35 @@
 package com.example.backend.models;
 
+import jakarta.persistence.*;
 
+@Entity
+@Table(name = "predmeti")
 public class Predmet {
 	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_predmeta")
 	private int idPredmeta;
+
+	@Column(name = "ime_predmeta")
 	private String imePredmeta;
+
+	@Column(name = "godina")
 	private int godina;
+
+	@Column(name = "broj_kredita")
 	private int brojKredita;
+
+	@Column(name = "opis_predmeta")
     private String opisPredmeta;
-	private String predispitneObaveze;
 	
 	public Predmet() {};
-	public Predmet(int idPredmeta, String imePredmeta, int godina, int brojKredita, String opisPredmeta, String predispitneObaveze) {
+	public Predmet(int idPredmeta, String imePredmeta, int godina, int brojKredita, String opisPredmeta) {
 		this.idPredmeta = idPredmeta;
 		this.imePredmeta = imePredmeta;
 		this.godina = godina;
 		this.brojKredita = brojKredita;
 		this.opisPredmeta = opisPredmeta;
-		this.predispitneObaveze = predispitneObaveze;
 	}
 	public int getIdPredmeta() {
 		return idPredmeta;
@@ -48,12 +60,6 @@ public class Predmet {
 	}
 	public void setOpisPredmeta(String opisPredmeta) {
 		this.opisPredmeta = opisPredmeta;
-	}
-	public String getPredispitneObaveze() {
-		return predispitneObaveze;
-	}
-	public void setPredispitneObaveze(String predispitneObaveze) {
-		this.predispitneObaveze = predispitneObaveze;
 	}
 	
 }

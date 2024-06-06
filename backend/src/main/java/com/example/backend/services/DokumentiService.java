@@ -8,11 +8,11 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.backend.db.DokumentiRepo;
 import com.example.backend.models.Dokument;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Optional;
 
 @Service
 public class DokumentiService {
@@ -24,6 +24,24 @@ public class DokumentiService {
 
     public List<Dokument> mojiDokumenti(String korisnickoIme) {
         return dokumentiRepo.findByKorisnickoIme(korisnickoIme);
+    }
+
+    public boolean obrisiDokument(int idDokumenta) {
+        Optional<Dokument> optionalDokument = dokumentiRepo.findById(idDokumenta);
+        if (optionalDokument.isPresent()) {
+            Dokument dokument = optionalDokument.get();
+            Path filePath = Paths.get(dokument.getPutanja());
+            try {
+                if (Files.exists(filePath)) {
+                    Files.delete(filePath);
+                }
+                dokumentiRepo.delete(dokument);
+                return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     public void postaviDokument(MultipartFile file, String korisnickoIme, String nazivDokumenta, String tipDokumenta) {
@@ -50,7 +68,6 @@ public class DokumentiService {
 
         } catch (IOException e) {
         e.printStackTrace();
-        // Handle the exception
     }
 
         

@@ -42,7 +42,7 @@ export class StudentDocumentsComponent implements OnInit {
       uploadData.append('nazivDokumenta', this.documentName);
       uploadData.append('tipDokumenta', this.documentType);
 
-      this.dokumentiplacanjaservis.uploadDocument(uploadData).subscribe(
+      this.dokumentiplacanjaservis.postaviDokument(uploadData).subscribe(
         response => {
           console.log('Upload response:', response);
           // Handle success response
@@ -55,6 +55,21 @@ export class StudentDocumentsComponent implements OnInit {
     } else {
       alert('No file selected, document name missing, or user not logged in');
     }
+  }
+
+  deleteDocument(idDokumenta: number): void {
+    if (confirm('Da li ste sigurni da zelite da obisete ovaj dokument?')) {
+      this.dokumentiplacanjaservis.obrisiDokument(idDokumenta).subscribe(
+        response => {
+          console.log('Odgovor servera:', response);
+          this.dkmnti = this.dkmnti.filter(d => d.idDokumenta !== idDokumenta);
+        },
+        error => {
+          console.error('Greska:', error);
+        }
+      );
+    }
+
   }
 
 }

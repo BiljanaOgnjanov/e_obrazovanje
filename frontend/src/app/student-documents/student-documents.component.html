@@ -5,14 +5,16 @@
     <th>Naziv dokumenta</th>
     <th>Tip dokumenta</th>
     <th>Id Dokumenta</th>
-    <th>Preuzimanje</th>
+    <th>Obrisi Dokument</th>
   </tr>
 </thead>
   <tr *ngFor="let d of dkmnti">
     <td class="text-left">{{d.nazivDokumenta}}</td>
     <td class="text-left">{{d.tipDokumenta}}</td>
     <td class="text-left">{{d.idDokumenta}}</td>
-    <td class="text-left">link</td>
+    <td class="text-left">
+      <button (click)="deleteDocument(d.idDokumenta)" class="btn btn-danger">Delete</button>
+    </td>
   </tr>
 </table>
 <hr>

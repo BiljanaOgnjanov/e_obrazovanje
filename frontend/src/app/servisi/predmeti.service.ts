@@ -15,5 +15,4 @@ export class PredmetiService {
     return this.http.get<mojiPredmetiDTO[]>(`${this.url}/svaPracenjaPredmeta/${username}`);
   }
 
-  //post za novo pracenje predmeta
 }

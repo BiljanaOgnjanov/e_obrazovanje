@@ -20,7 +20,11 @@ export class DokumentaplacanjaService {
     return this.http.get<Uplata[]>(`${this.url}/uplate/${username}`);
   }
 
-  uploadDocument(uploadData: FormData): Observable<any> {
+  postaviDokument(uploadData: FormData): Observable<any> {
     return this.http.post<any>(`${this.url}/dokumenti/upload`, uploadData);
+  }
+
+  obrisiDokument(idDokumenta: number): Observable<any> {
+    return this.http.delete(`${this.url}/dokumenti/obrisi/${idDokumenta}`, { responseType: 'text' });
   }
 }

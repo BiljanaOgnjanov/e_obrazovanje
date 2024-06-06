@@ -42,7 +42,7 @@
       <hr>
       <p>Detalji o polozenom ispitu:</p>
       <div *ngIf="polozeniIspiti.length > 0">
-        <p>{{formatDetails(polozeniIspiti[expandedDetailsIndex].predispitneObaveze, polozeniIspiti[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}</p>
+        <p>Detalji -><!--{{formatDetails(polozeniIspiti[expandedDetailsIndex].predispitneObaveze, polozeniIspiti[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}--></p>
       </div>
     </div>
     <hr>
@@ -83,7 +83,7 @@
       <hr>
       <p>Detalji o nepolozenom ispitu:</p>
       <div *ngIf="polozeniIspiti.length > 0">
-        <p>{{formatDetails(nepolozeniIspiti[expandedDetailsIndex].predispitneObaveze, nepolozeniIspiti[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}</p>
+        <p>Detalji -> <!--{{formatDetails(nepolozeniIspiti[expandedDetailsIndex].predispitneObaveze, nepolozeniIspiti[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}--></p>
       </div>
     </div>
   </div>
@@ -116,7 +116,7 @@
     <div *ngIf="expandedDetailsIndex !== -1">
       <p>Informacije o ispitu:</p>
     <div *ngIf="trenutnaPracenja.length > 0">
-        <p>{{formatDetails(trenutnaPracenja[expandedDetailsIndex].predispitneObaveze, trenutnaPracenja[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}</p>
+        <p>Detalji -> <!--{{formatDetails(trenutnaPracenja[expandedDetailsIndex].predispitneObaveze, trenutnaPracenja[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}--></p>
       </div>
   </div>
   </div>

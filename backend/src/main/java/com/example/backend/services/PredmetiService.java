@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class PredmetiService {
+
     @Autowired
     private PredmetiRepo predmetiRepository;
 
+    
     public List<MojiPredmetiDTO> getPredmetiByKorisnickoIme(String korisnickoIme) {
         return predmetiRepository.findPredmetiByKorisnickoIme(korisnickoIme);
     }

@@ -9,12 +9,10 @@ public class MojiPredmetiDTO {
     private int idPracenjaPredmeta;
     private int skolskaGodina;
     private int polozenIspit;
-    private int ocena;
+    private Integer ocena;
     
     public MojiPredmetiDTO() {}
-	public MojiPredmetiDTO(int idPredmeta, String imePredmeta, int godina, int brojKredita, String opisPredmeta,
-			int idPracenjaPredmeta, int skolskaGodina, int polozenIspit, int ocena) {
-		super();
+	public MojiPredmetiDTO(int idPredmeta, String imePredmeta, int godina, int brojKredita, String opisPredmeta, int idPracenjaPredmeta, int skolskaGodina, int polozenIspit, Integer ocena) {
 		this.idPredmeta = idPredmeta;
 		this.imePredmeta = imePredmeta;
 		this.godina = godina;
@@ -73,10 +71,10 @@ public class MojiPredmetiDTO {
 	public void setPolozenIspit(int polozenIspit) {
 		this.polozenIspit = polozenIspit;
 	}
-	public int getOcena() {
+	public Integer getOcena() {
 		return ocena;
 	}
-	public void setOcena(int ocena) {
+	public void setOcena(Integer ocena) {
 		this.ocena = ocena;
 	}
 	

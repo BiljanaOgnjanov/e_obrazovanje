@@ -69,6 +69,8 @@ export class StudentCourseDashboardComponent implements OnInit {
   }
 
   formatDetails(predispitneObaveze: string, rezultatiPredispitnihObaveza: string): string {
+    //servis.detalji
+    //nista vise? prikaz polja na frontu
     const predispitnePairs = predispitneObaveze.split(':');
     const rezultatiPairs = rezultatiPredispitnihObaveza.split(':');
 

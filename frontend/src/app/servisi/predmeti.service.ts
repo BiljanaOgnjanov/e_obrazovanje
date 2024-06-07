@@ -15,4 +15,8 @@ export class PredmetiService {
     return this.http.get<mojiPredmetiDTO[]>(`${this.url}/svaPracenjaPredmeta/${username}`);
   }
 
+  detaljiPracenjaPredmeta(id_pracenja_predmeta:number){
+    return this.http.get<Number>(`${this.url}/svaPracenjaPredmeta/detalji/${id_pracenja_predmeta}`);
+  }
+
 }

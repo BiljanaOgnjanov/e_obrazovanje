@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 public interface PredmetiRepo extends JpaRepository<PracenjePredmeta, Integer> {
 
-    @Query("SELECT new com.example.demo.dto.MojiPredmetiDTO(p.idPredmeta, p.imePredmeta, p.godina, p.brojKredita, p.opisPredmeta, pp.idPracenjaPredmeta, pp.skolskaGodina, pp.polozenIspit, pp.ocena) " +
+    @Query("SELECT new com.example.backend.models.MojiPredmetiDTO(p.idPredmeta, p.imePredmeta, p.godina, p.brojKredita, p.opisPredmeta, pp.idPracenjaPredmeta, pp.skolskaGodina, pp.polozenIspit, pp.ocena) " +
         "FROM PracenjePredmeta pp JOIN pp.predmet p WHERE pp.korisnickoIme = :username")
     List<MojiPredmetiDTO> findPredmetiByKorisnickoIme(@Param("username") String username);
 }

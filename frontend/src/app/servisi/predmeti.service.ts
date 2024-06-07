@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { mojiPredmetiDTO } from '../modeli/mojiPredmetiDTO';
+import { ispitniRezultat } from '../modeli/ispitniRezultat';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class PredmetiService {
   }
 
   detaljiPracenjaPredmeta(id_pracenja_predmeta:number){
-    return this.http.get<Number>(`${this.url}/svaPracenjaPredmeta/detalji/${id_pracenja_predmeta}`);
+    return this.http.get<ispitniRezultat[]>(`${this.url}/rezultati/${id_pracenja_predmeta}`);
   }
 
 }

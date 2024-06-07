@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Student } from '../modeli/student';
 import { PredmetiService } from '../servisi/predmeti.service';
 import { mojiPredmetiDTO } from '../modeli/mojiPredmetiDTO';
+import { ispitniRezultat } from '../modeli/ispitniRezultat';
 
 @Component({
   selector: 'app-student-course-dashboard',
@@ -22,6 +23,8 @@ export class StudentCourseDashboardComponent implements OnInit {
   mojiEspb:number = 0;
   brPolozenihIspita:number = 0;
   prosecnaOcena:number = 0;
+
+  rezultati:ispitniRezultat[] =[];
 
   constructor(private predmetiservis: PredmetiService){}
 
@@ -44,7 +47,7 @@ export class StudentCourseDashboardComponent implements OnInit {
         this.trenutnaPracenja.push(predmet);
       } else if (predmet.ocena === 5) {
         this.nepolozeniIspiti.push(predmet);
-      } else if (predmet.ocena > 5){
+      } else if (predmet.polozenIspit === 1){
         this.polozeniIspiti.push(predmet);
         this.brPolozenihIspita++;
         this.prosecnaOcena+=predmet.ocena;
@@ -60,7 +63,8 @@ export class StudentCourseDashboardComponent implements OnInit {
 
   expandedDetailsIndex: number = -1;
 
-  toggleDetails(index: number) {
+  toggleDetails(id_pracenja_predmeta:number, index: number) {
+    this.formatDetails(id_pracenja_predmeta);
     if (this.expandedDetailsIndex === index) {
       this.expandedDetailsIndex = -1;
     } else {
@@ -68,27 +72,9 @@ export class StudentCourseDashboardComponent implements OnInit {
     }
   }
 
-  formatDetails(predispitneObaveze: string, rezultatiPredispitnihObaveza: string): string {
-    //servis.detalji
-    //nista vise? prikaz polja na frontu
-    const predispitnePairs = predispitneObaveze.split(':');
-    const rezultatiPairs = rezultatiPredispitnihObaveza.split(':');
-
-    let formattedDetails = '';
-
-    for (let i = 0; i < predispitnePairs.length; i += 2) {
-      const predispitneLabel = predispitnePairs[i];
-      const predispitneValue = predispitnePairs[i + 1];
-      const rezultatiValue = rezultatiPairs[i / 2];
-
-      if (formattedDetails !== '') {
-        formattedDetails += ', ';
-      }
-
-      formattedDetails += `${predispitneLabel}: ${rezultatiValue}/${predispitneValue}`;
-    }
-
-    return formattedDetails;
+  formatDetails(id_pracenja_predmeta:number) {
+    this.predmetiservis.detaljiPracenjaPredmeta(id_pracenja_predmeta).subscribe((data: ispitniRezultat[])=>
+    this.rezultati = data)
   }
 
 }

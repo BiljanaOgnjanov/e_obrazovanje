@@ -30,7 +30,7 @@
           <td class="text-left">{{ pracenje.godina}}.</td>
           <td class="text-left"> Jun </td>
           <td class="text-left">
-            <button (click)="toggleDetails(i)">Detalji</button>
+            <button (click)="toggleDetails(pracenje.idPracenjaPredmeta, i)">Detalji</button>
             <div *ngIf="expandedDetailsIndex === i">
             </div>
           </td>
@@ -41,8 +41,27 @@
     <div *ngIf="expandedDetailsIndex !== -1">
       <hr>
       <p>Detalji o polozenom ispitu:</p>
-      <div *ngIf="polozeniIspiti.length > 0">
-        <p>Detalji -><!--{{formatDetails(polozeniIspiti[expandedDetailsIndex].predispitneObaveze, polozeniIspiti[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}--></p>
+      <div *ngIf="rezultati.length > 0">
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Naziv Ispitne Obaveze</th>
+                <th>Broj Poena</th>
+                <th>Osvojeno Poena</th>
+                <th>Rok</th>
+                <th>Polozen Ispit U Roku</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rezultat of rezultati">
+                <td>{{ rezultat.nazivIspitneObaveze }}</td>
+                <td>{{ rezultat.brojPoena }}</td>
+                <td>{{ rezultat.osvojenoPoena }}</td>
+                <td>{{ rezultat.rok }}</td>
+                <td>{{ rezultat.polozenIspitURoku }}</td>
+              </tr>
+            </tbody>
+          </table>
       </div>
     </div>
     <hr>
@@ -71,7 +90,7 @@
           <td class="text-left">{{ pracenje.brojKredita }}</td>
           <td class="text-left">{{ pracenje.godina}}.</td>
           <td class="text-left">
-            <button (click)="toggleDetails(i)">Detalji</button>
+            <button (click)="toggleDetails(+pracenje.idPracenjaPredmeta, i)">Detalji</button>
             <div *ngIf="expandedDetailsIndex === i">
             </div>
           </td>
@@ -83,7 +102,28 @@
       <hr>
       <p>Detalji o nepolozenom ispitu:</p>
       <div *ngIf="polozeniIspiti.length > 0">
-        <p>Detalji -> <!--{{formatDetails(nepolozeniIspiti[expandedDetailsIndex].predispitneObaveze, nepolozeniIspiti[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}--></p>
+        <div *ngIf="rezultati.length > 0">
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Naziv Ispitne Obaveze</th>
+                <th>Broj Poena</th>
+                <th>Osvojeno Poena</th>
+                <th>Rok</th>
+                <th>Polozen Ispit U Roku</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rezultat of rezultati">
+                <td>{{ rezultat.nazivIspitneObaveze }}</td>
+                <td>{{ rezultat.brojPoena }}</td>
+                <td>{{ rezultat.osvojenoPoena }}</td>
+                <td>{{ rezultat.rok }}</td>
+                <td>{{ rezultat.polozenIspitURoku }}</td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
       </div>
     </div>
   </div>
@@ -106,7 +146,7 @@
           <td class="text-left">{{ pracenje.brojKredita}}</td>
           <td class="text-left">{{ pracenje.godina}}.</td>
           <td class="text-left">
-            <button (click)="toggleDetails(i)">Detalji</button>
+            <button (click)="toggleDetails(+pracenje.idPracenjaPredmeta, i)">Detalji</button>
             <div *ngIf="expandedDetailsIndex === i">
             </div>
           </td>
@@ -116,8 +156,29 @@
     <div *ngIf="expandedDetailsIndex !== -1">
       <p>Informacije o ispitu:</p>
     <div *ngIf="trenutnaPracenja.length > 0">
-        <p>Detalji -> <!--{{formatDetails(trenutnaPracenja[expandedDetailsIndex].predispitneObaveze, trenutnaPracenja[expandedDetailsIndex].rezultatiPredispitnihObaveza)}}--></p>
-      </div>
+      <div *ngIf="rezultati.length > 0">
+        <table lass="table table-bordered table-striped table-hover">
+          <thead>
+            <tr>
+              <th>Naziv Ispitne Obaveze</th>
+              <th>Broj Poena</th>
+              <th>Osvojeno Poena</th>
+              <th>Rok</th>
+              <th>Polozen Ispit U Roku</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let rezultat of rezultati">
+              <td>{{ rezultat.nazivIspitneObaveze }}</td>
+              <td>{{ rezultat.brojPoena }}</td>
+              <td>{{ rezultat.osvojenoPoena }}</td>
+              <td>{{ rezultat.rok }}</td>
+              <td>{{ rezultat.polozenIspitURoku }}</td>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+    </div>
   </div>
   </div>
 </div>

@@ -14,6 +14,11 @@ import { NastavnikProfileComponent } from './nastavnik-profile/nastavnik-profile
 import { NastavnikCourseAdministrationComponent } from './nastavnik-course-administration/nastavnik-course-administration.component';
 import { NastavnikAssociateAdministrationComponent } from './nastavnik-associate-administration/nastavnik-associate-administration.component';
 import { NastavnikNotificationsComponent } from './nastavnik-notifications/nastavnik-notifications.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
+import { AdminKorisniciComponent } from './admin-korisnici/admin-korisnici.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -38,6 +43,16 @@ const routes: Routes = [
       {path:'administracija-predmeta', component:NastavnikCourseAdministrationComponent},
       {path:'administracija-saradnika', component:NastavnikAssociateAdministrationComponent},
       {path:'obavestenja', component:NastavnikNotificationsComponent}
+    ],
+  },
+  {path:'adminlogin', component:AdminLoginComponent},
+  {
+    path:"admin",
+    component:AdminLayoutComponent,
+    children:[
+      {path: '', component: AdminProfileComponent},
+      {path:'administracija-predmeta', component:AdminCoursesComponent},
+      {path:'administracija-studenta', component:AdminKorisniciComponent}
     ],
   },
   { path: '**', component: NotFoundComponent },

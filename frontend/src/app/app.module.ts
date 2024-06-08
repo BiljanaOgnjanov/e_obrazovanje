@@ -25,6 +25,11 @@ import { NastavnikLayoutComponent } from './nastavnik-layout/nastavnik-layout.co
 import { NastavnikNotificationsComponent } from './nastavnik-notifications/nastavnik-notifications.component';
 import { NastavnikCourseAdministrationComponent } from './nastavnik-course-administration/nastavnik-course-administration.component';
 import { NastavnikAssociateAdministrationComponent } from './nastavnik-associate-administration/nastavnik-associate-administration.component';
+import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
+import { AdminMeniComponent } from './admin-meni/admin-meni.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { AdminKorisniciComponent } from './admin-korisnici/admin-korisnici.component';
+import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +53,12 @@ import { NastavnikAssociateAdministrationComponent } from './nastavnik-associate
     NastavnikLayoutComponent,
     NastavnikNotificationsComponent,
     NastavnikCourseAdministrationComponent,
-    NastavnikAssociateAdministrationComponent
+    NastavnikAssociateAdministrationComponent,
+    AdminLayoutComponent,
+    AdminMeniComponent,
+    AdminProfileComponent,
+    AdminKorisniciComponent,
+    AdminCoursesComponent
   ],
   imports: [
     BrowserModule,

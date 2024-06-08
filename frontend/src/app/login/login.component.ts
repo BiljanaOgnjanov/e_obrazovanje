@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { KorisnikService } from '../servisi/korisnik.service';
+import { Student } from '../modeli/student';
 //import { KorisniciService } from '../servisi/korisnici.service';
 
 @Component({
@@ -30,9 +31,9 @@ export class LoginComponent {
             this.greska = 'Takav korisnik u bazi ne postoji';
           } else {
             localStorage.setItem('ulogovan', JSON.stringify(data));
-            if(this.username == 'sanja'){
+            if(data.tip == 'nastavnik'){
               this.tip='nastavnik';
-            }
+            } else{this.tip = 'student'}
             if (this.tip == 'student') {
               this.router.navigate(['/student']);
             } else if (this.tip == 'nastavnik') {

@@ -1,0 +1,8 @@
+<app-header></app-header>
+    <div class="wrapper">
+      <app-admin-meni (menuItemSelected)="onMenuItemSelected($event)"></app-admin-meni>
+      <div class="main-content">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+

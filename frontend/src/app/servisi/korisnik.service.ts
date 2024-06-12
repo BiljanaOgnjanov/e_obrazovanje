@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { KorisnikResponse } from '../modeli/korisnikResponse';
+import { Korisnik } from '../modeli/korisnik';
 
 
 @Injectable({

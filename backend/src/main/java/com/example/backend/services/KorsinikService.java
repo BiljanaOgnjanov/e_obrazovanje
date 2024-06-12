@@ -2,6 +2,7 @@ package com.example.backend.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.backend.db.AdministratorRepo;
 import com.example.backend.db.KorisnikRepo;
 import com.example.backend.db.NastavnikRepo;
 import com.example.backend.db.StudentRepo;
@@ -19,19 +20,27 @@ public class KorsinikService {
     @Autowired
     private NastavnikRepo professorRepository;
 
+    @Autowired
+    private AdministratorRepo administratorRepository;
+
     public Object prijava(String username, String password) {
         Korisnik user = userRepository.findByUsernameAndPassword(username, password);
         if (user == null) {
             return null;
         }
+        System.out.println(user.username);
+        System.out.println(user.getTip());
 
-        if (user.getTip().equals("student")) {
-            return studentRepository.findById(username).orElse(null);
-        } else if (user.getTip().equals("nastavnik")) {
-            return professorRepository.findById(username).orElse(null);
+        switch (user.getTip()) {
+            case "student":
+                return studentRepository.findById(username).orElse(null);
+            case "nastavnik":
+                return professorRepository.findById(username).orElse(null);
+            case "administrator":
+                return administratorRepository.findById(username).orElse(null);
+            default:
+                return null;
         }
-
-        return null;
     }
     
 }

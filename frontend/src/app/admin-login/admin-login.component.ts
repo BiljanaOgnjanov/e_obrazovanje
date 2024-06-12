@@ -16,7 +16,7 @@ export class AdminLoginComponent {
 
   tip:string = 'administrator';
 
-  login(){
+  admin_login(){
     if (this.username == "") {
       this.greska = "Nije uneto korisnicko ime";
     }
@@ -25,13 +25,12 @@ export class AdminLoginComponent {
     }
     else {
       this.korisnikServis.prijava(this.username, this.password).subscribe(data => {
-          if (data == null) {
+          if (data == null || data.tip!="administrator") {
+            alert(data.tip);
             this.greska = 'Takav administrator u bazi ne postoji';
           } else {
+            alert(data.tip);
             localStorage.setItem('ulogovan', JSON.stringify(data));
-            if(data.tip != 'administrator'){
-              this.greska = 'Takav administrator u bazi ne postoji';
-            }
             this.router.navigate(['/admin'])
           }
         });

@@ -22,7 +22,6 @@ public class KorisniciController {
 
     @PostMapping("/prijava")
     public ResponseEntity<?> prijava(@RequestBody Korisnik korisnik) {
-        System.out.println(korisnik.getUsername());
         Object user = korsinikService.prijava(korisnik.getUsername(), korisnik.getLozinka());
         if (user == null) {
             return null;

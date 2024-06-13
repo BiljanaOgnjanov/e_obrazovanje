@@ -1,1 +1,56 @@
-<p>admin-courses works!</p>
+<div class="tab-content">
+  <table border="1" *ngIf="predmeti.length > 0; else noCourses" class="table table-bordered table-striped table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th>#</th>
+        <th>Naziv predmeta</th>
+        <th>Godina</th>
+        <th>Broj kredita (ESPB)</th>
+        <th>Opis predmeta</th>
+        <th>Akcije</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let predmet of predmeti; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td class="text-left">{{ predmet.imePredmeta }}</td>
+        <td class="text-left">{{ predmet.godina }}</td>
+        <td class="text-left">{{ predmet.brojKredita }}</td>
+        <td class="text-left">{{ predmet.opisPredmeta }}</td>
+        <td class="text-left">
+          <button (click)="deleteCourse(predmet.idPredmeta)">Obriši</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noCourses>
+    Nema dostupnih predmeta.
+  </ng-template>
+
+  <button (click)="toggleAddCourseForm()">Dodaj predmet</button>
+
+  <div *ngIf="addingCourse">
+    <h3>Dodaj novi predmet</h3>
+    <form (ngSubmit)="addCourse()">
+      <div>
+        <label for="imePredmeta">Ime predmeta:</label>
+        <input id="imePredmeta" [(ngModel)]="newPredmet.imePredmeta" name="imePredmeta" required>
+      </div>
+      <div>
+        <label for="godina">Godina:</label>
+        <input id="godina" type="number" [(ngModel)]="newPredmet.godina" name="godina" required>
+      </div>
+      <div>
+        <label for="brojKredita">Broj kredita (ESPB):</label>
+        <input id="brojKredita" type="number" [(ngModel)]="newPredmet.brojKredita" name="brojKredita" required>
+      </div>
+      <div>
+        <label for="opisPredmeta">Opis predmeta:</label>
+        <input id="opisPredmeta" [(ngModel)]="newPredmet.opisPredmeta" name="opisPredmeta" required>
+      </div>
+      <button type="submit">Sačuvaj</button>
+      <button type="button" (click)="toggleAddCourseForm()">Odustani</button>
+    </form>
+  </div>
+</div>

@@ -1,6 +1,8 @@
 package com.example.backend.services;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.example.backend.db.PredmetiAPRepo;
@@ -34,5 +36,19 @@ public class PredmetiService {
 
     public void deleteCourse(int id) {
         predmetiAPRepo.deleteById(id);
+    }
+
+    public Optional<Predmet> getCourseById(int idPredmeta) {
+        return predmetiAPRepo.findById(idPredmeta);
+    }
+
+    public Predmet updateCourse(int idPredmeta, Predmet updatedPredmet) {
+        return predmetiAPRepo.findById(idPredmeta).map(predmet -> {
+            predmet.setImePredmeta(updatedPredmet.getImePredmeta());
+            predmet.setGodina(updatedPredmet.getGodina());
+            predmet.setBrojKredita(updatedPredmet.getBrojKredita());
+            predmet.setOpisPredmeta(updatedPredmet.getOpisPredmeta());
+            return predmetiAPRepo.save(predmet);
+        }).orElse(null);
     }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Nastavnik } from '../modeli/nastavnik';
+import { KorisnikService } from '../servisi/korisnik.service';
 
 @Component({
   selector: 'app-nastavnik-profile',
@@ -9,7 +10,7 @@ import { Nastavnik } from '../modeli/nastavnik';
 export class NastavnikProfileComponent implements OnInit {
   ulogovan: Nastavnik = new Nastavnik();
 
-  constructor(){}
+  constructor(private korisnikService: KorisnikService){}
 
   ngOnInit(): void {
     let x = localStorage.getItem("ulogovan");
@@ -17,4 +18,5 @@ export class NastavnikProfileComponent implements OnInit {
       this.ulogovan = JSON.parse(x);
     }
   }
+
 }

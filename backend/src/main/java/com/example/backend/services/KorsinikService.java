@@ -7,6 +7,7 @@ import com.example.backend.db.KorisnikRepo;
 import com.example.backend.db.NastavnikRepo;
 import com.example.backend.db.StudentRepo;
 import com.example.backend.models.Korisnik;
+import com.example.backend.models.Nastavnik;
 
 @Service
 public class KorsinikService {
@@ -28,8 +29,6 @@ public class KorsinikService {
         if (user == null) {
             return null;
         }
-        System.out.println(user.username);
-        System.out.println(user.getTip());
 
         switch (user.getTip()) {
             case "student":

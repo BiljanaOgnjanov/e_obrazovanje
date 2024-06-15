@@ -42,7 +42,7 @@ public class ProfesorPredavanjePredmetaController {
         return predavanjePredmetaService.getProfessorsNotTeachingCourse(idPredmeta);
     }
 
-    @GetMapping("/Predaju/{idPredmeta}")
+    @GetMapping("/predaju/{idPredmeta}")
     public List<Nastavnik> getProfessorsTeachingCourse(@PathVariable("idPredmeta") int idPredmeta) {
         return predavanjePredmetaService.getProfessorsTeachingCourse(idPredmeta);
     }

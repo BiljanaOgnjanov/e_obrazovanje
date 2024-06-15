@@ -4,10 +4,12 @@
   <div *ngIf="predmeti.length > 0; else noCourses">
     <label for="courseSelect">Odaberi predmet:</label>
     <select id="courseSelect" (change)="onCourseSelect($event)">
+      <option value="" disabled selected>--- Odaberi predmet ---</option>
       <option *ngFor="let predmet of predmeti" [value]="predmet.idPredmeta">
         {{ predmet.imePredmeta }}
       </option>
     </select>
+    <br><hr>
 
     <div *ngIf="selectedPredmet">
 

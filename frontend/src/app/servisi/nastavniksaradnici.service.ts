@@ -21,7 +21,7 @@ export class NastavniksaradniciService {
   }
 
   getProfessorsTeachingCourse(idPredmeta: number): Observable<Nastavnik[]> {
-    return this.http.get<Nastavnik[]>(`${this.baseUrl}/Predaju/${idPredmeta}`);
+    return this.http.get<Nastavnik[]>(`${this.baseUrl}/predaju/${idPredmeta}`);
   }
 
   addProfessorToCourse(korisnickoIme: string, idPredmeta: number): Observable<any> {
@@ -30,5 +30,13 @@ export class NastavniksaradniciService {
       idPredmeta: idPredmeta
     };
     return this.http.post(`${this.baseUrl}/dodajPracenje`, data);
+  }
+
+  getCourseById(id: number): Observable<Predmet> {
+    return this.http.get<Predmet>(`${this.baseUrl}/jedanPredmet/${id}`);
+  }
+
+  updateCourse(id: number, updatedCourse: Predmet): Observable<Predmet> {
+    return this.http.put<Predmet>(`${this.baseUrl}/jedanPredmet/${id}`, updatedCourse);
   }
 }

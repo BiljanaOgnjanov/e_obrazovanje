@@ -27,6 +27,12 @@ public class PracenjePredmeta {
 	@Column(name = "id_predmeta")
 	private int idPredmeta;
 
+	@Column(name = "broj_prijava") 
+    private int brojPrijava;
+
+    @Column(name = "ukupno_poena") 
+    private int ukupnoPoena;
+
 	@ManyToOne
     @JoinColumn(name = "id_predmeta", referencedColumnName = "id_predmeta", insertable = false, updatable = false)
     @JsonIgnore
@@ -37,13 +43,15 @@ public class PracenjePredmeta {
 	private Student student;
 	
 	public PracenjePredmeta() {};
-	public PracenjePredmeta(int idPracenjaPredmeta, String korisnickoIme, int skolskaGodina, int polozenIspit, int ocena, int idPredmeta) {
+	public PracenjePredmeta(int idPracenjaPredmeta, String korisnickoIme, int skolskaGodina, int polozenIspit, int ocena, int idPredmeta, int brojPrijava, int ukupnoPoena) {
 		this.idPracenjaPredmeta = idPracenjaPredmeta;
 		this.korisnickoIme = korisnickoIme;
 		this.skolskaGodina = skolskaGodina;
 		this.polozenIspit = polozenIspit;
 		this.ocena = ocena;
 		this.idPredmeta = idPredmeta;
+		this.brojPrijava = brojPrijava;
+        this.ukupnoPoena = ukupnoPoena;
 	}
 	public int getIdPracenjaPredmeta() {
 		return idPracenjaPredmeta;
@@ -87,6 +95,23 @@ public class PracenjePredmeta {
 	public void setPredmet(Predmet predmet) {
 		this.predmet = predmet;
 	}
+
+	public int getBrojPrijava() {
+        return brojPrijava;
+    }
+
+    public void setBrojPrijava(int brojPrijava) {
+        this.brojPrijava = brojPrijava;
+    }
+
+    public int getUkupnoPoena() {
+        return ukupnoPoena;
+    }
+
+    public void setUkupnoPoena(int ukupnoPoena) {
+        this.ukupnoPoena = ukupnoPoena;
+    }
+	
 	public Student getStudent() {
         return student;
     }

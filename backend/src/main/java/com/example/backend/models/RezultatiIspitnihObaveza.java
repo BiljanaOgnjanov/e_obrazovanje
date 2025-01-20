@@ -20,8 +20,8 @@ public class RezultatiIspitnihObaveza {
     @Column(name = "osvojeno_poena", nullable = false)
     private int osvojenoPoena;
 
-    @Column(name = "rok")
-    private String rok;
+    @Column(name = "rok", insertable = false, updatable = false, nullable = false)
+    private int rok;
 
     @Column(name = "polozen_ispit_u_roku", nullable = false)
     private int polozenIspitURoku;
@@ -36,9 +36,13 @@ public class RezultatiIspitnihObaveza {
     @JsonIgnore
     private IspitneObaveze ispitneObaveze;
 
+    @ManyToOne
+    @JoinColumn(name = "rok", referencedColumnName = "id_roka", insertable = false, updatable = false, nullable = false)
+    private IspitniRokovi ispitniRokovi;
+
     public RezultatiIspitnihObaveza() {}
 
-    public RezultatiIspitnihObaveza(int idRezIo, int osvojenoPoena, String rok, int polozenIspitURoku, int idPracenjaPredmeta, int idIo) {
+    public RezultatiIspitnihObaveza(int idRezIo, int osvojenoPoena, int rok, int polozenIspitURoku, int idPracenjaPredmeta, int idIo) {
         this.idRezIo = idRezIo;
         this.idPracenjaPredmeta = idPracenjaPredmeta;
         this.idIo = idIo;
@@ -95,13 +99,22 @@ public class RezultatiIspitnihObaveza {
         this.idIo = idIo;
     }
 
-    public String getRok() {
+    public int getRok() {
         return rok;
     }
 
-    public void setRok(String rok) {
+    public void setRok(int rok) {
         this.rok = rok;
     }
+
+    public IspitniRokovi getIspitniRok() {
+        return ispitniRokovi;
+    }
+
+    public void setIspitniRok(IspitniRokovi ispitniRokovi) {
+        this.ispitniRokovi = ispitniRokovi;
+    }
+
 
     public int getPolozenIspitURoku() {
         return polozenIspitURoku;

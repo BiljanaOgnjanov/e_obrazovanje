@@ -15,9 +15,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.backend.models.Dokument;
+import com.example.backend.models.Placanja;
 import com.example.backend.models.Uplate;
 import com.example.backend.services.DokumentiService;
+import com.example.backend.services.PlacanjaService;
 import com.example.backend.services.UplateService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 
@@ -30,6 +34,9 @@ public class UplateDokumentaController {
     private UplateService uplateService;
 
     @Autowired
+    private PlacanjaService placanjaService;
+
+    @Autowired
     private DokumentiService dokumentiService;
 
     @GetMapping("/uplate/{username}")
@@ -38,10 +45,26 @@ public class UplateDokumentaController {
         return uplateService.getUplateByUsername(username);
     }
     
+    @GetMapping("/placanja/{username}")
+    public List<Placanja> placanjaKorisnika(@PathVariable("username") String username) {
+        return placanjaService.getPlacanjaByUsername(username);
+    }
+    
     @GetMapping("/dokumenti/{username}")
     public List<Dokument> dokumentiKorisnika(@PathVariable("username") String username) {
         return  dokumentiService.mojiDokumenti(username);
     }
+
+    @PostMapping("/overi-semestar")
+    public ResponseEntity<String> overiSemestar(@RequestParam String korisnickoIme) {
+        String result = placanjaService.overiSemestar(korisnickoIme);
+        if (result.equals("Semestar uspešno overen.")) {
+            return ResponseEntity.ok(result);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result);
+        }
+    }
+    
     
     @PostMapping("dokumenti/upload")
     public void uploadDocument(@RequestParam("file") MultipartFile file,

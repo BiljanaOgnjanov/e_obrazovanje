@@ -19,6 +19,7 @@ import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 import { AdminKorisniciComponent } from './admin-korisnici/admin-korisnici.component';
+import { AdminAkcijeComponent } from './admin-akcije/admin-akcije.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -51,6 +52,7 @@ const routes: Routes = [
     component:AdminLayoutComponent,
     children:[
       {path: '', component: AdminProfileComponent},
+      {path: 'akcije', component: AdminAkcijeComponent},
       {path:'administracija-predmeta', component:AdminCoursesComponent},
       {path:'administracija-studenta', component:AdminKorisniciComponent}
     ],

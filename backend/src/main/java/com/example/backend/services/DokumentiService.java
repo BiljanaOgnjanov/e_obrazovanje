@@ -17,7 +17,7 @@ import java.util.Optional;
 @Service
 public class DokumentiService {
 
-    private final String uploadDir = "../../../../../../../../dokumenti";
+    private final String uploadDir = "C:\\Users\\Mirko\\Desktop\\eobrazovanje\\dokumenti";
 
     @Autowired
     private DokumentiRepo dokumentiRepo;

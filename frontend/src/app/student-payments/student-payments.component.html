@@ -1,19 +1,41 @@
+<h6>Stanje racuna: {{ulogovan.racun}} RSD</h6>
+<hr>
 <h3 class="my-4">Pregled svih uplata</h3>
 <table border="1" *ngIf="uplate.length > 0; else nemaUplata" class="table table-bordered table-striped table-hover">
   <thead class="thead-dark">
-  <tr>
-    <th>Svrha uplate</th>
-    <th>Datum uplate</th>
-    <th>Iznos</th>
-  </tr>
-</thead>
+    <tr>
+      <th>Svrha uplate</th>
+      <th>Datum uplate</th>
+      <th>Iznos</th>
+    </tr>
+  </thead>
   <tr *ngFor="let a of uplate">
-    <td class="text-left">{{a.svrhaUplate}}</td>
-    <td class="text-left">{{a.datum}}</td>
-    <td class="text-left">{{a.iznos}}RSD</td>
+    <td class="text-left">{{ a.svrhaUplate }}</td>
+    <td class="text-left">{{ a.datum }}</td>
+    <td class="text-left">{{ a.iznos }} RSD</td>
   </tr>
 </table>
 <ng-template #nemaUplata>
   Nije bilo uplata.
 </ng-template>
 
+<h3 class="my-4">Pregled svih plaćanja</h3>
+<table border="1" *ngIf="placanja.length > 0; else nemaPlacanja" class="table table-bordered table-striped table-hover">
+  <thead class="thead-dark">
+    <tr>
+      <th>Naziv plaćanja</th>
+      <th>Datum</th>
+      <th>Iznos</th>
+      <th>Komentar</th>
+    </tr>
+  </thead>
+  <tr *ngFor="let p of placanja">
+    <td class="text-left">{{ p.nazivPlacanja }}</td>
+    <td class="text-left">{{ p.datum }}</td>
+    <td class="text-left">{{ p.iznos }} RSD</td>
+    <td class="text-left">{{ p.komentar }}</td>
+  </tr>
+</table>
+<ng-template #nemaPlacanja>
+  Nije bilo plaćanja.
+</ng-template>

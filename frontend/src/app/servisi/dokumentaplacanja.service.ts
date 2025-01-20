@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Uplata } from '../modeli/uplata';
+import { Placanje } from '../modeli/placanje';
 import { Observable } from 'rxjs';
 import { Dkmnt } from '../modeli/dkmnt';
 
@@ -18,6 +19,13 @@ export class DokumentaplacanjaService {
   }
   uplateKorisnika(username:string){
     return this.http.get<Uplata[]>(`${this.url}/uplate/${username}`);
+  }
+  placanjaKorisnika(username: string) {
+    return this.http.get<Placanje[]>(`${this.url}/placanja/${username}`);
+  }
+  overiSemestar(username:string): Observable<any>{
+    const params = new HttpParams().set('korisnickoIme', username);
+    return this.http.post<string>(`${this.url}/overi-semestar`, null, { params });
   }
 
   postaviDokument(uploadData: FormData): Observable<any> {

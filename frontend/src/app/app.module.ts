@@ -30,6 +30,7 @@ import { AdminMeniComponent } from './admin-meni/admin-meni.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { AdminKorisniciComponent } from './admin-korisnici/admin-korisnici.component';
 import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
+import { AdminAkcijeComponent } from './admin-akcije/admin-akcije.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,8 @@ import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
     AdminMeniComponent,
     AdminProfileComponent,
     AdminKorisniciComponent,
-    AdminCoursesComponent
+    AdminCoursesComponent,
+    AdminAkcijeComponent
   ],
   imports: [
     BrowserModule,

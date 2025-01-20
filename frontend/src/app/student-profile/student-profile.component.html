@@ -7,3 +7,18 @@ Broj telefona {{ulogovan.telefon}} <br>
 Godina studija: {{ulogovan.studijskaGodina}} <br>
 Smer: {{ulogovan.smer}}
 <hr>
+
+<div>
+  <h3>Overa semestra</h3>
+  <p>Status: <strong>{{ ulogovan.overenSemestar }}</strong></p>
+  <button
+    class="btn btn-primary"
+    [disabled]="ulogovan.overenSemestar === 'overen'"
+    (click)="overiSemestar()">
+    Overi semestar
+  </button>
+
+  <div *ngIf="poruka" class="alert alert-info mt-3">
+    {{ poruka }}
+  </div>
+</div>

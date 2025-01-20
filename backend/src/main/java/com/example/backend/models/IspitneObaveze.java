@@ -1,6 +1,5 @@
 package com.example.backend.models;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
@@ -22,6 +21,17 @@ public class IspitneObaveze {
     @Column(name = "id_predmeta")
     private int idPredmeta;
 
+    @Column(name = "datum", nullable = false)
+    private String datum;
+
+    @Column(name = "rok", insertable = false, updatable = false, nullable = false)
+    private int rok;
+
+    @ManyToOne
+    @JoinColumn(name = "rok", referencedColumnName = "id_roka", insertable = false, updatable = false, nullable = false)
+    private IspitniRokovi ispitniRokovi;
+
+
     @ManyToOne
     @JoinColumn(name = "id_predmeta", referencedColumnName = "id_predmeta", insertable = false, updatable = false)
     @JsonIgnore
@@ -29,11 +39,13 @@ public class IspitneObaveze {
 
     public IspitneObaveze(){}
 
-    public IspitneObaveze(int idIo, String naziv, int brojPoena, int idPredmeta){
+    public IspitneObaveze(int idIo, String naziv, int brojPoena, int idPredmeta, String datum, int rok){
         this.idIo = idIo;
         this.nazivIspitneObaveze = naziv;
         this.brojPoena = brojPoena;
         this.idPredmeta=idPredmeta;
+        this.datum = datum;
+        this.rok = rok;
     }
     public int getIdIo() {
         return idIo;
@@ -58,6 +70,21 @@ public class IspitneObaveze {
     public void setBrojPoena(int brojPoena) {
         this.brojPoena = brojPoena;
     }
+    public String getDatum() {
+        return datum;
+    }
+
+    public void setDatum(String datum) {
+        this.datum = datum;
+    }
+
+    public int getRok() {
+        return rok;
+    }
+
+    public void setRok(int rok) {
+        this.rok = rok;
+    }
 
     public int getIdPredmeta() {
         return idPredmeta;
@@ -73,5 +100,12 @@ public class IspitneObaveze {
 
     public void setPredmet(Predmet predmet) {
         this.predmet = predmet;
+    }
+    public IspitniRokovi getIspitniRok() {
+        return ispitniRokovi;
+    }
+
+    public void setIspitniRok(IspitniRokovi ispitniRokovi) {
+        this.ispitniRokovi = ispitniRokovi;
     }
 }

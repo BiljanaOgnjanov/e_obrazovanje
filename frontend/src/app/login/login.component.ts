@@ -18,6 +18,10 @@ export class LoginComponent {
 
   tip:string = 'student';
 
+  ngOnInit(): void {
+    localStorage.clear()
+  }
+
   login(){
     if (this.username == "") {
       this.greska = "Nije uneto korisnicko ime";
@@ -31,19 +35,15 @@ export class LoginComponent {
             this.greska = 'Takav korisnik u bazi ne postoji';
           } else {
             localStorage.setItem('ulogovan', JSON.stringify(data));
-            if(data.tip == 'nastavnik'){
-              this.tip='nastavnik';
-            } else{this.tip = 'student'}
-            if (this.tip == 'student') {
-              this.router.navigate(['/student']);
-            } else if (this.tip == 'nastavnik') {
-              this.router.navigate(['/nastavnik']);
+
+            const dozvoljeniTipovi = ['nastavnik', 'student', 'administrator']
+            if (dozvoljeniTipovi.includes(data.tip)) {
+              this.router.navigate([`/${data.tip}`]);
             } else {
               this.greska = 'Nepoznat tip korisnika';
             }
           }
         });
-
   }
   }
 }

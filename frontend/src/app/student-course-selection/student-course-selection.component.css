@@ -1,0 +1,11 @@
+table th, table td {
+  text-align: center;
+}
+
+button[disabled] {
+  background-color: #d6d6d6;
+}
+
+.alert {
+  font-weight: bold;
+}

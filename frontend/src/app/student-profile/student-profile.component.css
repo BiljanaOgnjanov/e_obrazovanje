@@ -1,0 +1,17 @@
+.student-info {
+  background-color: #f8f9fa;  /* Light background for readability */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.student-info h3 {
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .student-info {
+    padding: 15px;
+  }
+}

@@ -1,0 +1,50 @@
+<div class="container">
+  <h3>Unos novog ispita</h3>
+  <div class="mb-3">
+    <label for="predmetLabel" class="form-label">Predmet</label>
+    <input type="text" id="predmetLabel" class="form-control" value="{{nastavnik.predmet.naziv}}" readonly>
+  </div>
+  <div class="mb-3">
+    <label for="datumInput" class="form-label">Datum ispita</label>
+    <input type="date" id="datumInput" class="form-control" [(ngModel)]="ispit.datum">
+  </div>
+  <div class="mb-3">
+    <label for="vremeInput" class="form-label">Vreme ispita</label>
+    <input type="time" id="vremeInput" class="form-control" [(ngModel)]="ispit.vreme">
+  </div>
+  <div class="mb-3">
+    <label for="cenaInput" class="form-label">Cena ispita (RSD)</label>
+    <input type="number" id="cenaInput" class="form-control" [(ngModel)]="ispit.cena" min="0">
+  </div>
+
+  <button class="btn btn-primary" (click)="dodajIspit()">Kreiraj ispit</button>
+
+  <h4 class="mt-4">Zakazani ispiti</h4>
+  <table class="table table-bordered table-striped mt-3">
+    <thead>
+      <tr>
+        <th>Predmet</th>
+        <th>Datum</th>
+        <th>Vreme</th>
+        <th>Cena</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ispit of zakazaniIspiti">
+        <td>{{ ispit.predmet }}</td>
+        <td>{{ ispit.datum }}</td>
+        <td>{{ ispit.vreme }}</td>
+        <td>{{ ispit.cena }} RSD</td>
+         <td>
+        <button class="w-100 btn btn-outline-success btn-sm" (click)="obavestiStudente(1)">
+          Obavesti studente
+        </button>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="mt-3">
+    <strong>Ukupna cena svih ispita: {{ ukupnaCenaIspita }} RSD</strong>
+  </div>
+</div>

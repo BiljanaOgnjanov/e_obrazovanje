@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Student } from '../modeli/student';
 
 @Component({
   selector: 'app-header',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+ ulogovan: Student = new Student;
 
+  ngOnInit(): void {
+    let x = localStorage.getItem("ulogovan");
+    if (x != null) {
+      this.ulogovan = JSON.parse(x);
+    }
+  }
 }

@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./student-notifications.component.css']
 })
 export class StudentNotificationsComponent {
-
+  // TODO - IZLISTATI OBAVESTENJA SA PRIJAVLJENOG ISPITA
 }

@@ -14,12 +14,13 @@ import { NastavnikProfileComponent } from './nastavnik-profile/nastavnik-profile
 import { NastavnikCourseAdministrationComponent } from './nastavnik-course-administration/nastavnik-course-administration.component';
 import { NastavnikAssociateAdministrationComponent } from './nastavnik-associate-administration/nastavnik-associate-administration.component';
 import { NastavnikNotificationsComponent } from './nastavnik-notifications/nastavnik-notifications.component';
-import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 import { AdminKorisniciComponent } from './admin-korisnici/admin-korisnici.component';
 import { AdminAkcijeComponent } from './admin-akcije/admin-akcije.component';
+import { NastavnikIspitComponent } from './nastavnik-ispit/nastavnik-ispit.component';
+import { NastavnikOcenjivanjeComponent } from './nastavnik-ocenjivanje/nastavnik-ocenjivanje.component';
 
 const routes: Routes = [
   {path:'login', component:LoginComponent},
@@ -30,7 +31,8 @@ const routes: Routes = [
     children: [
       { path: '', component: StudentProfileComponent },
       { path: 'predmeti-dashboard', component: StudentCourseDashboardComponent },
-      { path: 'prijave-predmeta', component: StudentCourseSelectionComponent },
+      { path: 'prijave-predmeta', component: StudentCourseSelectionComponent }, // lista predmeta za semsetar
+      { path: 'prijave-ispita', component: StudentCourseSelectionComponent },
       { path: 'dokumenti', component: StudentDocumentsComponent },
       { path: 'placanja', component: StudentPaymentsComponent },
       { path: 'obavestenja', component: StudentNotificationsComponent },
@@ -43,18 +45,19 @@ const routes: Routes = [
       {path: '', component: NastavnikProfileComponent},
       {path:'administracija-predmeta', component:NastavnikCourseAdministrationComponent},
       {path:'administracija-saradnika', component:NastavnikAssociateAdministrationComponent},
-      {path:'obavestenja', component:NastavnikNotificationsComponent}
+      {path:'obavestenja', component:NastavnikNotificationsComponent},
+      {path: 'novi-ispit', component:NastavnikIspitComponent},
+      {path:'ocenjivanje', component:NastavnikOcenjivanjeComponent}
     ],
   },
-  {path:'adminlogin', component:AdminLoginComponent},
   {
-    path:"admin",
+    path:"administrator",
     component:AdminLayoutComponent,
     children:[
       {path: '', component: AdminProfileComponent},
       {path: 'akcije', component: AdminAkcijeComponent},
-      {path:'administracija-predmeta', component:AdminCoursesComponent},
-      {path:'administracija-studenta', component:AdminKorisniciComponent}
+      {path:'predmeti', component:AdminCoursesComponent},
+      {path:'studenti', component:AdminKorisniciComponent}
     ],
   },
   { path: '**', component: NotFoundComponent },

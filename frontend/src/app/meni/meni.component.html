@@ -1,19 +1,15 @@
-<div class="sidebar d-flex flex-column">
-  <div class="user-info text-center py-3">
-    <img src="assets/default-profile.png" alt="Profile Picture" class="profile-picture img-fluid rounded-circle mb-2">
-    <div class="user-details">
-      <div class="user-name">{{ulogovan.ime}} {{ulogovan.prezime}}</div>
+<div class="sidebar d-flex flex-column bg-dark text-white p-3">
+    <div class="user-info text-center py-3">
+      <img src="assets/default-profile.png" alt="Profile Picture" class="profile-picture img-fluid rounded-circle mb-2" style="width: 70px; height: 70px;">
+      <div class="user-details">
+        <div class="user-name">{{ulogovan.ime}} {{ulogovan.prezime}}</div>
+      </div>
     </div>
-  </div>
-  <ul class="list-unstyled">
-    <li class="py-2 px-3" (click)="selectMenuItem('profile')">Pocetna</li>
-    <li class="py-2 px-3" (click)="selectMenuItem('predmeti-dashboard')">Predmeti</li>
-    <li class="py-2 px-3" (click)="selectMenuItem('prijave-predmeta')">Biranje predmeta</li>
-    <li class="py-2 px-3" (click)="selectMenuItem('placanja')">Placanja</li>
-    <li class="py-2 px-3" (click)="selectMenuItem('obavestenja')">Obavestenja</li>
-    <li class="py-2 px-3" (click)="selectMenuItem('dokumenti')">Dokumenti</li>
-  </ul>
-  <app-logout class="logout-button mt-auto m-3"></app-logout>
+    <ul class="list-unstyled mt-3">
+      <li *ngFor="let item of menuItems" class="py-2 px-3" [routerLink]="item.route">
+        <a  class="text-white text-decoration-none">{{ item.label }}</a>
+      </li>
+    </ul>
+    <app-logout class="logout-button mt-auto m-3"></app-logout>
 </div>
-
 

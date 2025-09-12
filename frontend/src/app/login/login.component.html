@@ -1,23 +1,22 @@
 <app-header></app-header>
-<br><br><br><br>
-<div class="full-height center-container">
-  <div class="card card-custom">
-    <table class="table table-borderless">
-      <tr>
-        <td>Korisnicko ime:</td>
-        <td><input type="text" [(ngModel)]="username" class="form-control" placeholder="Unesite korisnicko ime"></td>
-      </tr>
-      <tr>
-        <td>Lozinka:</td>
-        <td><input type="password" [(ngModel)]="password" class="form-control" placeholder="Unesite lozinku"></td>
-      </tr>
-      <tr>
-        <td><button (click)="login()" type="submit" class="btn btn-light">Prijava</button>
-        </td>
-      </tr>
-    </table>
-    <td colspan="2">
-      <span style="color: red;">{{greska}}</span>
+<div class="container d-flex justify-content-center align-items-center" style="min-height: calc(100vh - 60px);">
+  <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+    <h3 class="text-center mb-4">Prijava</h3>
+    <form (ngSubmit)="login()">
+      <div class="mb-3">
+        <label for="username" class="form-label">Korisnicko ime</label>
+        <input type="text" id="username" [(ngModel)]="username" name="username" class="form-control" placeholder="Unesite korisnicko ime">
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label">Lozinka</label>
+        <input type="password" id="password" [(ngModel)]="password" name="password" class="form-control" placeholder="Unesite lozinku">
+      </div>
+      <div class="mb-3">
+        <button type="submit" class="btn btn-primary w-100">Prijava</button>
+      </div>
+      <div *ngIf="greska" class="alert alert-danger">
+        {{ greska }}
+      </div>
+    </form>
   </div>
-  <br>
 </div>

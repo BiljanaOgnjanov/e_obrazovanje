@@ -20,17 +20,17 @@ import { StudentNotificationsComponent } from './student-notifications/student-n
 import { FormsModule } from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { NastavnikProfileComponent } from './nastavnik-profile/nastavnik-profile.component';
-import { NastavnikMeniComponent } from './nastavnik-meni/nastavnik-meni.component';
 import { NastavnikLayoutComponent } from './nastavnik-layout/nastavnik-layout.component';
 import { NastavnikNotificationsComponent } from './nastavnik-notifications/nastavnik-notifications.component';
 import { NastavnikCourseAdministrationComponent } from './nastavnik-course-administration/nastavnik-course-administration.component';
 import { NastavnikAssociateAdministrationComponent } from './nastavnik-associate-administration/nastavnik-associate-administration.component';
 import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { AdminMeniComponent } from './admin-meni/admin-meni.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { AdminKorisniciComponent } from './admin-korisnici/admin-korisnici.component';
 import { AdminCoursesComponent } from './admin-courses/admin-courses.component';
 import { AdminAkcijeComponent } from './admin-akcije/admin-akcije.component';
+import { NastavnikOcenjivanjeComponent } from './nastavnik-ocenjivanje/nastavnik-ocenjivanje.component';
+import { NastavnikIspitComponent } from './nastavnik-ispit/nastavnik-ispit.component';
 
 @NgModule({
   declarations: [
@@ -50,17 +50,17 @@ import { AdminAkcijeComponent } from './admin-akcije/admin-akcije.component';
     StudentNotificationsComponent,
     LogoutComponent,
     NastavnikProfileComponent,
-    NastavnikMeniComponent,
     NastavnikLayoutComponent,
     NastavnikNotificationsComponent,
     NastavnikCourseAdministrationComponent,
     NastavnikAssociateAdministrationComponent,
     AdminLayoutComponent,
-    AdminMeniComponent,
     AdminProfileComponent,
     AdminKorisniciComponent,
     AdminCoursesComponent,
-    AdminAkcijeComponent
+    AdminAkcijeComponent,
+    NastavnikOcenjivanjeComponent,
+    NastavnikIspitComponent
   ],
   imports: [
     BrowserModule,

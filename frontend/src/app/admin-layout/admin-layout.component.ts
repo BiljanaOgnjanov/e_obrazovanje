@@ -11,9 +11,9 @@ export class AdminLayoutComponent {
 
   onMenuItemSelected(menuItem: string) {
     if (menuItem === 'profile') {
-      this.router.navigateByUrl('/admin');
+      this.router.navigateByUrl('/administrator');
     } else {
-      this.router.navigate(['/admin', menuItem]);
+      this.router.navigate(['/administrator', menuItem]);
     }
   }
 }

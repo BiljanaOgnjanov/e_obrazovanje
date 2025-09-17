@@ -1,0 +1,15 @@
+<ng-container>
+  <app-navbar></app-navbar>
+  @if (auth.currentUser()) {
+  <div class="d-flex">
+    <app-sidebar></app-sidebar>
+    <div class="flex-grow-1 p-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  } @else {
+  <div class="d-flex justify-content-center align-items-center" style="height: calc(100vh - 100px)">
+    <router-outlet></router-outlet>
+  </div>
+  }
+</ng-container>

@@ -1,0 +1,17 @@
+@if (user(); as u) {
+<div class="bg-dark vh-100 p-3" style="width: 250px">
+  <ul class="nav flex-column">
+    @for (item of menuItems(); track item.label) {
+    <li class="nav-item">
+      <a
+        routerLinkActive="active"
+        routerLink="{{ item.path }}"
+        class="nav-link d-flex align-items-center text-light fs-small border-bottom border-light fw-small py-3"
+      >
+        {{ item.label }}
+      </a>
+    </li>
+    }
+  </ul>
+</div>
+}

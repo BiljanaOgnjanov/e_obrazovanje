@@ -1,22 +1,20 @@
 package com.eobrazovanje.eobrazovanje_api.courses;
 
 import com.eobrazovanje.eobrazovanje_api.courses.Course;
-import com.eobrazovanje.eobrazovanje_api.courses.dtos.CourseDto;
-import com.eobrazovanje.eobrazovanje_api.courses.dtos.CreateCourseDto;
-import com.eobrazovanje.eobrazovanje_api.courses.dtos.UpdateCourseDto;
+import com.eobrazovanje.eobrazovanje_api.courses.dto.CourseDto;
+import com.eobrazovanje.eobrazovanje_api.courses.dto.CreateCourseDto;
+import com.eobrazovanje.eobrazovanje_api.courses.dto.UpdateCourseDto;
 import com.eobrazovanje.eobrazovanje_api.exceptions.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CourseService {
     private final CourseRepository repository;
 
-    @Autowired
     public CourseService(CourseRepository repository) {
         this.repository = repository;
     }

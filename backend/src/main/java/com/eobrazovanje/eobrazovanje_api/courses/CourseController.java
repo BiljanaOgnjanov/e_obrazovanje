@@ -1,9 +1,9 @@
 package com.eobrazovanje.eobrazovanje_api.courses;
 
 import com.eobrazovanje.eobrazovanje_api.courses.CourseService;
-import com.eobrazovanje.eobrazovanje_api.courses.dtos.CourseDto;
-import com.eobrazovanje.eobrazovanje_api.courses.dtos.CreateCourseDto;
-import com.eobrazovanje.eobrazovanje_api.courses.dtos.UpdateCourseDto;
+import com.eobrazovanje.eobrazovanje_api.courses.dto.CourseDto;
+import com.eobrazovanje.eobrazovanje_api.courses.dto.CreateCourseDto;
+import com.eobrazovanje.eobrazovanje_api.courses.dto.UpdateCourseDto;
 
 import jakarta.validation.Valid;
 

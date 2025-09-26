@@ -1,31 +1,22 @@
-package com.eobrazovanje.eobrazovanje_api.professorProfiles;
+package com.eobrazovanje.eobrazovanje_api.documents;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.eobrazovanje.eobrazovanje_api.courses.Course;
 import com.eobrazovanje.eobrazovanje_api.users.User;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,24 +25,28 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="professor_profiles")
+@Table(name="documents")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder 
-public class ProfessorProfile {
+@Builder
+public class Document {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @MapsId
-    @JoinColumn(name = "user_id")
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ProfessorRole role;
+    private String fileName;
+
+    @Column(nullable = false)
+    private String fileType;
+
+    @Column(nullable = false)
+    private String filePath;
 
     @CreatedDate
     @Column(updatable = false)
@@ -59,12 +54,4 @@ public class ProfessorProfile {
 
     @LastModifiedDate
     private LocalDateTime updatedAt;
-
-    @ManyToMany
-    @JoinTable(
-        name = "professor_courses",
-        joinColumns = @JoinColumn(name = "professor_id"),
-        inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    private List<Course> courses = new ArrayList<>();
 }

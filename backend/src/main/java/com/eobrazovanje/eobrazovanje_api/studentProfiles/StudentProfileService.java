@@ -1,6 +1,12 @@
 package com.eobrazovanje.eobrazovanje_api.studentProfiles;
 
+import com.eobrazovanje.eobrazovanje_api.courses.Course;
+import com.eobrazovanje.eobrazovanje_api.courses.dto.CourseDto;
 import com.eobrazovanje.eobrazovanje_api.exceptions.ResourceNotFoundException;
+import com.eobrazovanje.eobrazovanje_api.finance.FinancialCard;
+import com.eobrazovanje.eobrazovanje_api.finance.FinancialCardRepository;
+import com.eobrazovanje.eobrazovanje_api.finance.FinancialCardService;
+import com.eobrazovanje.eobrazovanje_api.finance.TransactionType;
 import com.eobrazovanje.eobrazovanje_api.studentProfiles.dto.CreateStudentProfileDto;
 import com.eobrazovanje.eobrazovanje_api.studentProfiles.dto.StudentProfileDto;
 import com.eobrazovanje.eobrazovanje_api.studentProfiles.dto.UpdateStudentProfileDto;
@@ -18,15 +24,21 @@ import org.springframework.stereotype.Service;
 public class StudentProfileService {
     private final StudentProfileRepository studentProfileRepository;
     private final UserRepository userRepository;
+    private final FinancialCardRepository financialCardRepository;
+    private final FinancialCardService financialCardService;
     private final PasswordEncoder encoder;
 
     public StudentProfileService(
         StudentProfileRepository studentProfileRepository,
         UserRepository userRepository,
+        FinancialCardRepository financialCardRepository,
+        FinancialCardService financialCardService,
         PasswordEncoder encoder
     ) {
         this.studentProfileRepository = studentProfileRepository;
         this.userRepository = userRepository;
+        this.financialCardRepository = financialCardRepository;
+        this.financialCardService = financialCardService;
         this.encoder = encoder;
     }
 
@@ -38,6 +50,16 @@ public class StudentProfileService {
         StudentProfile user = this.studentProfileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Student profile not found"));
 
         return toDto(user);
+    }
+
+    public List<CourseDto> getCoursesForStudent(UUID studentId) {
+        StudentProfile student = studentProfileRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student not found."));
+
+        return student.getCourses()
+            .stream()
+            .map(this::toCourseDto)
+            .toList();
     }
 
     public StudentProfileDto create(CreateStudentProfileDto data) {
@@ -58,6 +80,15 @@ public class StudentProfileService {
             .build();
 
         studentProfileRepository.save(profile);
+
+        FinancialCard card = FinancialCard.builder()
+            .student(profile)
+            .balance(0.0)
+            .build();
+
+        financialCardRepository.save(card);
+
+        financialCardService.deposit(profile.getId(), 3000.0, TransactionType.DEPOSIT);
 
         return toDto(profile);
     }
@@ -112,6 +143,17 @@ public class StudentProfileService {
             user.getStudyProgram(),
             user.getCreatedAt(),
             user.getUpdatedAt()
+        );
+    }
+
+    private CourseDto toCourseDto(Course course) {
+        return new CourseDto(
+            course.getId(),
+            course.getName(),
+            course.getYear(),
+            course.getEspb(),
+            course.getCreatedAt(),
+            course.getUpdatedAt()
         );
     }
 }

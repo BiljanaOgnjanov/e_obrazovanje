@@ -1,4 +1,4 @@
-package com.eobrazovanje.eobrazovanje_api.professorProfiles;
+package com.eobrazovanje.eobrazovanje_api.finance;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,23 +9,19 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import com.eobrazovanje.eobrazovanje_api.courses.Course;
-import com.eobrazovanje.eobrazovanje_api.users.User;
+import com.eobrazovanje.eobrazovanje_api.studentProfiles.StudentProfile;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.MapsId;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,24 +30,22 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name="professor_profiles")
+@Table(name="financial_cards")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder 
-public class ProfessorProfile {
+public class FinancialCard {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @MapsId
-    @JoinColumn(name = "user_id")
-    private User user;
+    @OneToOne
+    @JoinColumn(name = "student_id", nullable = false, unique = true)
+    private StudentProfile student;
 
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ProfessorRole role;
+    private Double balance;
 
     @CreatedDate
     @Column(updatable = false)
@@ -60,11 +54,6 @@ public class ProfessorProfile {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    @ManyToMany
-    @JoinTable(
-        name = "professor_courses",
-        joinColumns = @JoinColumn(name = "professor_id"),
-        inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
-    private List<Course> courses = new ArrayList<>();
+    @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Transaction> transactions = new ArrayList<>();
 }

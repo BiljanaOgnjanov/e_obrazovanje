@@ -1,5 +1,6 @@
 package com.eobrazovanje.eobrazovanje_api.studentProfiles;
 
+import com.eobrazovanje.eobrazovanje_api.courses.dto.CourseDto;
 import com.eobrazovanje.eobrazovanje_api.studentProfiles.dto.CreateStudentProfileDto;
 import com.eobrazovanje.eobrazovanje_api.studentProfiles.dto.StudentProfileDto;
 import com.eobrazovanje.eobrazovanje_api.studentProfiles.dto.UpdateStudentProfileDto;
@@ -39,6 +40,11 @@ public class StudentProfileController {
         StudentProfileDto user = studentProfileService.getById(id);
 
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("{id}/courses")
+    public ResponseEntity<List<CourseDto>> getCoursesForStudent(@PathVariable UUID id) {
+        return ResponseEntity.ok(studentProfileService.getCoursesForStudent(id));
     }
 
     @PostMapping

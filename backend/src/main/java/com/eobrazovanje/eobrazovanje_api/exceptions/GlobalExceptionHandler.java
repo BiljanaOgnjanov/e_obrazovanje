@@ -18,6 +18,11 @@ import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ApiError> handleIllegalState(IllegalStateException  ex) {
+        return buildError(HttpStatus.BAD_REQUEST, "Error", ex.getMessage(), List.of());
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiError> handleNotFound(ResourceNotFoundException ex) {
         return buildError(HttpStatus.NOT_FOUND, "Not Found", ex.getMessage(), List.of());

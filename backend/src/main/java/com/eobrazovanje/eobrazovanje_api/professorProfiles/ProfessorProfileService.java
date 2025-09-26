@@ -1,5 +1,7 @@
 package com.eobrazovanje.eobrazovanje_api.professorProfiles;
 
+import com.eobrazovanje.eobrazovanje_api.courses.Course;
+import com.eobrazovanje.eobrazovanje_api.courses.dto.CourseDto;
 import com.eobrazovanje.eobrazovanje_api.exceptions.ResourceNotFoundException;
 import com.eobrazovanje.eobrazovanje_api.professorProfiles.dto.CreateProfessorProfileDto;
 import com.eobrazovanje.eobrazovanje_api.professorProfiles.dto.ProfessorProfileDto;
@@ -38,6 +40,16 @@ public class ProfessorProfileService {
         ProfessorProfile user = this.professorProfileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Professor profile not found"));
 
         return toDto(user);
+    }
+
+    public List<CourseDto> getCoursesForProfessor(UUID professorId) {
+        ProfessorProfile prof = professorProfileRepository.findById(professorId)
+                .orElseThrow(() -> new ResourceNotFoundException("Professor not found."));
+
+        return prof.getCourses()
+            .stream()
+            .map(this::toCourseDto)
+            .toList();
     }
 
     public ProfessorProfileDto create(CreateProfessorProfileDto data) {
@@ -106,6 +118,17 @@ public class ProfessorProfileService {
             user.getRole(),
             user.getCreatedAt(),
             user.getUpdatedAt()
+        );
+    }
+
+    private CourseDto toCourseDto(Course course) {
+        return new CourseDto(
+            course.getId(),
+            course.getName(),
+            course.getYear(),
+            course.getEspb(),
+            course.getCreatedAt(),
+            course.getUpdatedAt()
         );
     }
 }

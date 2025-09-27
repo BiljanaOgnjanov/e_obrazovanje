@@ -1,0 +1,199 @@
+<div class="container-fluid py-2">
+  @if (user?.userType === 'STUDENT') {
+  <div class="row">
+    <div class="col-12">
+      <div class="card-body">
+        <app-table
+          [title]="'Predmeti'"
+          [columns]="getColumns()"
+          [data]="getData()"
+          [searchable]="true"
+        >
+        </app-table>
+      </div>
+    </div>
+  </div>
+  } @if (user?.userType === 'PROFESSOR') { @if (!selectedSubjectId) {
+  <div class="row">
+    <div class="col-12">
+      <div class="card-body">
+        <div class="table-responsive shadow-sm rounded">
+          <table class="table table-hover align-middle">
+            <thead class="table-dark">
+              <tr>
+                <th>Naziv</th>
+                <th>Godina</th>
+                <th>Broj kredita (ESPB)</th>
+                <th>Asistenti</th>
+                <th>Dodeljivanje Asistenta</th>
+                <th>Demonstratori</th>
+                <th>Dodeljivanje Demonstratora</th>
+                <th>Prijavljeni Studenti</th>
+                <th>Izmena Predmeta</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (subject of professorSubjects; track subject.id) {
+              <tr>
+                <td>{{ subject.name }}</td>
+                <td>{{ subject.year }}</td>
+                <td>
+                  <span class="badge bg-primary">
+                    {{ subject.espb }}
+                  </span>
+                </td>
+
+                <!-- Asistenti -->
+                <td>
+                  @if (subject.assistants?.length > 0) {
+                  <div class="d-flex flex-wrap gap-1">
+                    @for (assistant of subject.assistants; track assistant.id) {
+                    <span class="badge bg-success d-flex align-items-center gap-1">
+                      {{ assistant.firstName }} {{ assistant.lastName }}
+                      <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        style="font-size: 0.6em"
+                        (click)="removeRole(subject.id, assistant.id)"
+                        title="Ukloni asistenta"
+                      ></button>
+                    </span>
+                    }
+                  </div>
+                  } @else {
+                  <span class="text-muted">Nema asistenata</span>
+                  }
+                </td>
+                <td>
+                  <button
+                    class="btn btn-outline-success btn-sm"
+                    (click)="openRoleModal(subject.id, 'ASSISTENT')"
+                  >
+                    Dodeli asistenta
+                  </button>
+                </td>
+                <td>
+                  @if (subject.demonstrators?.length > 0) {
+                  <div class="d-flex flex-wrap gap-1">
+                    @for (demo of subject.demonstrators; track demo.id) {
+                    <span class="badge bg-info d-flex align-items-center gap-1">
+                      {{ demo.firstName }} {{ demo.lastName }}
+                      <button
+                        type="button"
+                        class="btn-close btn-close-white"
+                        style="font-size: 0.6em"
+                        (click)="removeRole(subject.id, demo.id)"
+                        title="Ukloni demonstratora"
+                      ></button>
+                    </span>
+                    }
+                  </div>
+                  } @else {
+                  <span class="text-muted">Nema demonstratora</span>
+                  }
+                </td>
+                <td>
+                  <button
+                    class="btn btn-outline-info btn-sm"
+                    (click)="openRoleModal(subject.id, 'DEMONSTRATOR')"
+                  >
+                    Dodeli demonstratora
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-outline-primary btn-sm" (click)="viewStudents(subject.id)">
+                    Prikaži studente
+                  </button>
+                </td>
+                <td>
+                  <button class="btn btn-outline-warning btn-sm" (click)="openEditModal(subject)">
+                    Izmeni Predmet
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if (showEditModal && editedSubject) {
+  <div class="modal show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5)">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Izmeni predmet</h5>
+          <button type="button" class="btn-close" (click)="closeEditModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Naziv</label>
+            <input type="text" [(ngModel)]="editedSubject.name" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Godina</label>
+            <input type="number" [(ngModel)]="editedSubject.year" class="form-control" />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Broj kredita (ESPB)</label>
+            <input type="number" [(ngModel)]="editedSubject.espb" class="form-control" />
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeEditModal()">Otkaži</button>
+          <button class="btn btn-success" (click)="saveEdit()">Sačuvaj</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  } } } @if (selectedSubjectId) {
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-end align-items-center">
+        <button class="btn btn-outline-secondary" (click)="backToSubjects()">
+          <i class="fas fa-arrow-left me-2"></i>Nazad na predmete
+        </button>
+      </div>
+
+      <app-table
+        [title]="'Studenti - ' + getCurrentSubjectName()"
+        [columns]="getColumns()"
+        [data]="getData()"
+        [searchable]="true"
+      ></app-table>
+    </div>
+  </div>
+  } @if (showRoleModal && currentRoleType && currentSubjectForRole) {
+  <div class="modal show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5)">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            Dodeli {{ currentRoleType === 'ASSISTENT' ? 'asistenta' : 'demonstratora' }} -
+            {{ getCurrentSubjectName() }}
+          </h5>
+          <button type="button" class="btn-close" (click)="closeRoleModal()"></button>
+        </div>
+        <div class="modal-body">
+          <div class="list-group">
+            @for (professor of availableRoles; track professor.id) {
+            <button
+              type="button"
+              class="list-group-item list-group-item-action"
+              (click)="assignRole(currentSubjectForRole, professor.id)"
+            >
+              {{ professor.firstName }} {{ professor.lastName }} ({{ professor.email }})
+            </button>
+            }
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeRoleModal()">Zatvori</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>

@@ -10,3 +10,7 @@
 .border-light {
   border-color: var(--bs-light) !important;
 }
+
+thead {
+  background-color: var(--bs-light) !important;
+}

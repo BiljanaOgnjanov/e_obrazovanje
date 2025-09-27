@@ -1,0 +1,53 @@
+<div class="container-fuild my-2">
+  @if (searchable) {
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h3 class="mb-0">{{ title }}</h3>
+    <input
+      type="text"
+      class="form-control w-25"
+      placeholder="Pretraži..."
+      [(ngModel)]="searchText"
+    />
+  </div>
+  }
+
+  <div class="table-responsive shadow-sm rounded">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-dark">
+        <tr>
+          @for (col of columns; track col.value) {
+          <th>{{ col.label }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of filteredData(); track $index) {
+        <tr>
+          @for (col of columns; track col.value) {
+          <td>
+            @if (col.customTemplate) {
+            <ng-container
+              *ngTemplateOutlet="col.customTemplate; context: { $implicit: row, column: col }"
+            ></ng-container>
+            } @else { @if (col.value.toLowerCase().includes('espb')) {
+            <span class="badge">{{ row[col.value] }}</span>
+            } @else {
+            {{ row[col.value] }}
+            } @if (col.value === 'actions') {
+            <div class="d-flex gap-1">
+              <button class="btn btn-sm btn-warning" (click)="edit.emit(row)">
+                <i class="fas fa-edit"></i> Izmeni
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="remove.emit(row.id)">
+                <i class="fas fa-trash"></i> Obriši
+              </button>
+            </div>
+            } }
+          </td>
+          }
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

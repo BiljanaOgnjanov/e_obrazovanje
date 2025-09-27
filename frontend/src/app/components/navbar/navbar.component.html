@@ -1,30 +1,6 @@
-<style>
-  .custom-dropdown {
-    position: relative;
-  }
-
-  .custom-dropdown-menu {
-    position: absolute !important;
-    top: 100% !important;
-    right: 0 !important;
-    left: auto !important;
-    min-width: 160px;
-    z-index: 1050;
-    margin-top: 0.25rem;
-  }
-
-  /* Responsive adjustments */
-  @media (max-width: 576px) {
-    .custom-dropdown-menu {
-      min-width: 140px;
-    }
-  }
-</style>
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm px-4">
   <div class="container-fluid">
     <a class="navbar-brand fw-bold" href="#">E-Obrazovanje</a>
-
     @if (auth.currentUser(); as user) {
     <div class="custom-dropdown ms-auto">
       <button
@@ -32,7 +8,12 @@
         type="button"
         (click)="toggleDropdown()"
       >
-        <span>{{ user.username }}</span>
+        @if (user.userType == 'PROFESSOR') {
+        <span>Profesor -</span>
+        } @if (user.userType == 'STUDENT') {
+        <span>Student -</span>
+        }
+        <span>{{ user.firstName }} {{ user.lastName }}</span>
         @if (dropdownOpen()) {
         <i class="bi bi-chevron-up"></i>
         } @else {

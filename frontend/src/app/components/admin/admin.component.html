@@ -1,0 +1,181 @@
+<div class="container-fluid py-2">
+  <div class="d-flex justify-content-between mb-2">
+    <div class="btn-group">
+      <button
+        class="btn btn-outline-dark"
+        [class.active]="activeTab === 'students'"
+        (click)="activeTab = 'students'; loadData()"
+      >
+        Studenti
+      </button>
+      <button
+        class="btn btn-outline-dark"
+        [class.active]="activeTab === 'professors'"
+        (click)="activeTab = 'professors'; loadData()"
+      >
+        Profesori
+      </button>
+      <button
+        class="btn btn-outline-dark"
+        [class.active]="activeTab === 'subjects'"
+        (click)="activeTab = 'subjects'; loadData()"
+      >
+        Predmeti
+      </button>
+    </div>
+
+    <button class="btn btn-success" (click)="openModal()">Dodaj</button>
+  </div>
+  <div class="table-container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h3 class="mb-0">{{ activeTitle | titlecase }}</h3>
+      <input
+        type="text"
+        class="form-control w-25"
+        placeholder="Pretraži..."
+        [(ngModel)]="searchText"
+      />
+    </div>
+    <div class="table-responsive shadow-sm rounded">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+          <tr>
+            @for (col of getColumns(); track col.value) {
+            <th>{{ col.label }}</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for (row of getFilteredData(); track $index) {
+          <tr>
+            @for (col of getColumns(); track col.value) {
+            <td>
+              @if (col.value === 'coursesDisplay') {
+              {{ row.coursesDisplay }}
+              } @else if (col.value === 'courseManagement' && activeTab !== 'subjects') {
+              <div class="mb-2">
+                <div class="d-flex">
+                  <select
+                    class="form-select form-select-sm me-2"
+                    [(ngModel)]="row.selectedCourseId"
+                    [ngModelOptions]="{ standalone: true }"
+                    (focus)="onDropdownFocus()"
+                    (change)="onCourseSelectionChange(row)"
+                    style="max-width: 200px"
+                  >
+                    <option [ngValue]="null">-- Odaberi predmet --</option>
+                    @for (course of getAvailableCourses(row); track course.id) {
+                    <option [ngValue]="course.id">{{ course.name }}</option>
+                    }
+                  </select>
+                  <button
+                    class="btn btn-outline-primary btn-sm"
+                    type="button"
+                    (click)="assignCourseToEntity(row.id)"
+                    [disabled]="!selectedCourseId"
+                    title="{{
+                      !row.selectedCourseId ? 'Molimo odaberite predmet' : 'Dodeli predmet'
+                    }}"
+                  >
+                    Dodaj
+                  </button>
+                </div>
+                @if (!row.selectedCourseId && row.selectedCourseId !== null) {
+                <small class="text-muted">Odaberite predmet iz liste</small>
+                }
+              </div>
+              } @else if (col.value === 'actions') { @if (role === 'SUPER_ADMIN' || activeTab ===
+              'students') {
+              <div class="d-flex gap-1">
+                <button class="btn btn-sm btn-warning" (click)="openModal(row)">
+                  <i class="fas fa-edit"></i> Izmeni
+                </button>
+                <button class="btn btn-sm btn-danger" (click)="delete(row.id)">
+                  <i class="fas fa-trash"></i> Obriši
+                </button>
+              </div>
+              } } @else if (col.value.toLowerCase().includes('espb')) {
+              <span class="badge bg-primary">{{ row[col.value] }}</span>
+              } @else {
+              {{ row[col.value] }}
+              }
+            </td>
+            }
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  @if (showModal) {
+  <div class="modal show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5)">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            {{ editing?.id ? 'Izmeni' : 'Dodaj' }} {{ activeTitle | lowercase }}
+          </h5>
+          <button type="button" class="btn-close" (click)="closeModal()"></button>
+        </div>
+        <div class="modal-body">
+          @if (activeTab === 'students') {
+          <input class="form-control mb-2" [(ngModel)]="editing.firstName" placeholder="Ime" />
+          <input class="form-control mb-2" [(ngModel)]="editing.lastName" placeholder="Prezime" />
+          <input class="form-control mb-2" [(ngModel)]="editing.email" placeholder="Email" />
+          <input
+            class="form-control mb-2"
+            [(ngModel)]="editing.studentNumber"
+            placeholder="Broj indeksa"
+          />
+          <input class="form-control mb-2" [(ngModel)]="editing.studyProgram" placeholder="Smer" />
+          @if (!editing?.id) {
+          <input
+            class="form-control mb-2"
+            [(ngModel)]="editing.password"
+            type="password"
+            placeholder="Lozinka"
+          />
+          } } @if (activeTab === 'professors') {
+          <input class="form-control mb-2" [(ngModel)]="editing.firstName" placeholder="Ime" />
+          <input class="form-control mb-2" [(ngModel)]="editing.lastName" placeholder="Prezime" />
+          <input class="form-control mb-2" [(ngModel)]="editing.email" placeholder="Email" />
+          @if (!editing?.id) {
+          <input
+            class="form-control mb-2"
+            [(ngModel)]="editing.password"
+            type="password"
+            placeholder="Lozinka"
+          />
+          }
+          <select class="form-select mb-2" [(ngModel)]="editing.role" value="TEACHER">
+            <option value="TEACHER">Profesor</option>
+            <option value="ASSISTENT">Asistent</option>
+            <option value="DEMONSTRATOR">Demonstrator</option>
+          </select>
+          } @if (activeTab === 'subjects') {
+          <input class="form-control mb-2" [(ngModel)]="editing.name" placeholder="Naziv" />
+          <input
+            type="number"
+            class="form-control mb-2"
+            [(ngModel)]="editing.year"
+            placeholder="Godina"
+          />
+          <input
+            type="number"
+            class="form-control mb-2"
+            [(ngModel)]="editing.espb"
+            placeholder="Broj kredita (ESPB)"
+          />
+          }
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-secondary" (click)="closeModal()">Otkaži</button>
+          <button class="btn btn-success" (click)="save()">Sačuvaj</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  }
+</div>

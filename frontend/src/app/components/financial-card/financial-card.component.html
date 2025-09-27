@@ -1,0 +1,41 @@
+<div class="container-fluid py-2">
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h5 class="mb-0">Istorija transakcija</h5>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead class="table-dark">
+          <tr>
+            <th>Datum</th>
+            <th>Tip</th>
+            <th>Iznos</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (transactions.length > 0) { @for (t of transactions; track t.id) {
+          <tr>
+            <td>{{ t.createdAt | date : 'dd.MM.yyyy HH:mm' }}</td>
+            <td>
+              <span class="badge" [class]="getBadgeClass(t.type)">
+                {{ getTypeLabel(t.type) }}
+              </span>
+            </td>
+            <td
+              [class.text-success]="t.type === 'DEPOSIT' || t.type === 'REFUND'"
+              [class.text-danger]="t.type === 'EXAM_FEE'"
+            >
+              {{ t.amount | currency : 'RSD' : 'symbol' : '1.0-0' }}
+            </td>
+          </tr>
+          } } @else {
+          <tr>
+            <td colspan="3" class="text-center text-muted py-3">Nema zabeleženih transakcija</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

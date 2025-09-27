@@ -1,19 +1,19 @@
 <div class="card shadow p-4" style="min-width: 380px; max-width: 400px; width: 100%">
-  <h2 class="mb-4 text-center">Login</h2>
+  <h2 class="mb-4 text-center">Uloguj Se</h2>
   <form (ngSubmit)="onLogin()">
     <div class="mb-3">
-      <label class="form-label">Username</label>
-      <input type="text" [(ngModel)]="username" name="username" class="form-control" required />
+      <label class="form-label">Email</label>
+      <input type="text" [(ngModel)]="email" name="email" class="form-control" required />
     </div>
 
     <div class="mb-3">
-      <label class="form-label">Password</label>
+      <label class="form-label">Lozinka</label>
       <input type="password" [(ngModel)]="password" name="password" class="form-control" required />
     </div>
 
-    <button type="submit" class="btn btn-primary w-100">Login</button>
+    <button type="submit" class="btn btn-primary w-100">Uloguj Se</button>
   </form>
   @if (error) {
-  <div class="alert alert-danger mt-3">Invalid username or password</div>
+  <div class="alert alert-danger mt-3">Pogresna email adresa ili lozinka</div>
   }
 </div>

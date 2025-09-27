@@ -1,0 +1,12 @@
+.table {
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.badge {
+  font-size: 0.9rem;
+  background-color: #556777;
+  color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.8rem;
+}

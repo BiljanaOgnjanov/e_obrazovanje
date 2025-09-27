@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
     const user = this.auth.currentUser();
     const allowedRoles = route.data['roles'];
 
-    if (user && allowedRoles.includes(user.role)) {
+    if (user && allowedRoles.includes(user.userType)) {
       return true;
     }
 

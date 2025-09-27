@@ -1,0 +1,43 @@
+<div class="container-fluid py-2">
+  <div class="card shadow-sm">
+    <div class="card-header" style="background-color: #212529; color: white">
+      <h5 class="mb-0">Profil korisnika</h5>
+    </div>
+    <div class="card-body">
+      <p><strong>Ime:</strong> {{ user?.firstName }}</p>
+      <p><strong>Prezime:</strong> {{ user?.lastName }}</p>
+      <p><strong>Email:</strong> {{ user?.email }}</p>
+
+      @if (user?.userType === 'PROFESSOR') {
+      <button class="btn btn-outline-primary" (click)="openModal()">Izmeni profil</button>
+      }
+    </div>
+  </div>
+</div>
+
+@if (showModal) {
+<div class="modal show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5)">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Izmeni profil</h5>
+        <button type="button" class="btn-close" (click)="closeModal()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Ime</label>
+          <input type="text" class="form-control" [(ngModel)]="editing.firstName" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Prezime</label>
+          <input type="text" class="form-control" [(ngModel)]="editing.lastName" />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" (click)="closeModal()">Otkaži</button>
+        <button class="btn btn-success" (click)="save()">Sačuvaj</button>
+      </div>
+    </div>
+  </div>
+</div>
+}

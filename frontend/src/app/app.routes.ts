@@ -1,27 +1,50 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { SubjectsComponent } from './components/subjects/subjects.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { UploadComponent } from './components/upload/upload.component';
+import { GradeComponent } from './components/grade/grade.component';
+import { ScheduleComponent } from './components/schedule/schedule.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { FinancialCardComponent } from './components/financial-card/financial-card.component';
+import { SubjectManagementComponent } from './components/subject-management/subject-management.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   {
     path: 'admin',
-    component: LoginComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['admin'] },
+    data: { roles: ['ADMIN'] },
+    children: [
+      { path: '', redirectTo: 'upravljanje-korisnicima', pathMatch: 'full' },
+      { path: 'upravljanje-korisnicima', component: AdminComponent },
+      { path: 'upravljanje-predmetima', component: SubjectManagementComponent },
+    ],
   },
   {
     path: 'student',
-    component: LoginComponent,
     canActivate: [AuthGuard],
-    data: { roles: ['student'] },
+    data: { roles: ['STUDENT'] },
+    children: [
+      { path: '', redirectTo: 'pocetna', pathMatch: 'full' },
+      { path: 'pocetna', component: ProfileComponent },
+      { path: 'predmeti', component: SubjectsComponent },
+      { path: 'dokumenti', component: UploadComponent },
+      { path: 'finansijska-kartica', component: FinancialCardComponent },
+    ],
   },
   {
-    path: 'profesor',
-    component: LoginComponent,
+    path: 'professor',
     canActivate: [AuthGuard],
-    data: { roles: ['profesor'] },
+    data: { roles: ['PROFESSOR'] },
+    children: [
+      { path: '', redirectTo: 'pocetna', pathMatch: 'full' },
+      { path: 'pocetna', component: ProfileComponent },
+      { path: 'predmeti', component: SubjectsComponent },
+      { path: 'ocena', component: GradeComponent },
+      { path: 'zakazivanje-ispita', component: ScheduleComponent },
+    ],
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
-  { path: '**', redirectTo: 'login' },
 ];

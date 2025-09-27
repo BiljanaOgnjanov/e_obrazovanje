@@ -1,0 +1,98 @@
+<div class="container-fluid py-2">
+  <div class="mb-4">
+    <label class="form-label fw-bold">Izaberi predmet:</label>
+    <select
+      class="form-select"
+      [(ngModel)]="selectedSubjectId"
+      (change)="onSelectSubject(selectedSubjectId!)"
+    >
+      <option [ngValue]="null" disabled>-- Odaberi predmet --</option>
+      @for (subject of subjects; track subject.id) {
+      <option [ngValue]="subject.id">{{ subject.name }}</option>
+      }
+    </select>
+  </div>
+  @if (selectedSubject && selectedSubject.exams.length > 0) {
+  <div class="mb-4">
+    <label class="form-label fw-bold">Izaberi ispit:</label>
+    <select
+      class="form-select"
+      [(ngModel)]="selectedExamId"
+      (change)="onSelectExam(selectedExamId!)"
+    >
+      <option [ngValue]="null" disabled>-- Odaberi ispit --</option>
+      @for (exam of selectedSubject.exams; track exam.id) {
+      <option [ngValue]="exam.id">
+        {{ exam.examDate | date : 'dd.MM.yyyy' }} (Mesec: {{ exam.examMonth }})
+      </option>
+      }
+    </select>
+  </div>
+  } @else if (selectedSubject) {
+  <div class="alert alert-info">Za izabrani predmet još uvek nema zakazanih ispita.</div>
+  } @if (selectedExam && selectedExam.students.length > 0) {
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h5 class="mb-0">Studenti za ocenjivanje</h5>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Kolokvijum 1</th>
+            <th>Kolokvijum 2</th>
+            <th>Prisustvo</th>
+            <th>Ukupno</th>
+            <th>Ocena</th>
+            <th>Sačuvaj</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (student of selectedExam.students; track student.id) {
+          <tr>
+            <td>{{ student.firstName }}</td>
+            <td>{{ student.lastName }}</td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="student.test1"
+                name="test1-{{ student.id }}"
+                (change)="calculateFinal(student)"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="student.test2"
+                name="test2-{{ student.id }}"
+                (change)="calculateFinal(student)"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="student.attendance"
+                name="attendance-{{ student.id }}"
+                (change)="calculateFinal(student)"
+              />
+            </td>
+            <td>{{ student.finalScore }}</td>
+            <td>{{ student.finalGrade }}</td>
+            <td>
+              <button class="btn btn-sm btn-success" (click)="saveGrade(student)">Sačuvaj</button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  } @else if (selectedExam) {
+  <div class="alert alert-info">Još uvek nema prijavljenih studenata za ovaj ispit.</div>
+  }
+</div>

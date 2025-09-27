@@ -1,0 +1,19 @@
+.custom-dropdown {
+  position: relative;
+}
+
+.custom-dropdown-menu {
+  position: absolute !important;
+  top: 100% !important;
+  right: 0 !important;
+  left: auto !important;
+  min-width: 160px;
+  z-index: 1050;
+  margin-top: 0.25rem;
+}
+
+@media (max-width: 576px) {
+  .custom-dropdown-menu {
+    min-width: 140px;
+  }
+}

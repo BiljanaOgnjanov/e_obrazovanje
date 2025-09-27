@@ -1,0 +1,85 @@
+<div class="container-fluid py-2">
+  <div class="mb-4">
+    <label for="subjectSelect" class="form-label fw-bold">Izaberi predmet:</label>
+    <select id="subjectSelect" class="form-select" [(ngModel)]="selectedSubjectId">
+      <option [ngValue]="null" disabled>-- Odaberi predmet --</option>
+      @for (subject of subjects; track subject.id) {
+      <option [ngValue]="subject.id">{{ subject.name }}</option>
+      }
+    </select>
+  </div>
+  @if (selectedSubject) {
+  <div class="card shadow-sm mb-4">
+    <div class="card-header">
+      <h5 class="mb-0">Zakazivanje ispita za {{ selectedSubject.name }}</h5>
+    </div>
+    <div class="card-body">
+      <form (ngSubmit)="addExam()" class="row g-3 align-items-end">
+        <div class="col-md-3">
+          <label class="form-label">Mesec ispita</label>
+          <select class="form-select" [(ngModel)]="newExam.examMonth" name="examMonth" required>
+            <option [ngValue]="null" disabled>-- Odaberi mesec --</option>
+            @for (month of months; track month.value) {
+            <option [ngValue]="month.value">{{ month.label }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Datum ispita</label>
+          <input
+            type="date"
+            class="form-control"
+            [(ngModel)]="newExam.examDate"
+            name="examDate"
+            [min]="getMonthMinDate(newExam.examMonth)"
+            [max]="getMonthMaxDate(newExam.examMonth)"
+            [disabled]="!newExam.examMonth"
+            required
+          />
+        </div>
+
+        <div class="col-md-2">
+          <button type="submit" class="btn btn-success w-100">Dodaj</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h5 class="mb-0">Zakazani ispiti</h5>
+    </div>
+    <div class="table-responsive">
+      @if (selectedSubject.exams.length > 0) {
+      <table class="table table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Mesec Ispita</th>
+            <th>Datum</th>
+            <th>Obrisi</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (exam of selectedSubject.exams; track exam.id) {
+          <tr>
+            <td>{{ exam.examMonth }}</td>
+            <td>{{ exam.examDate }}</td>
+            <td>
+              <button class="btn btn-sm btn-outline-danger" (click)="removeExam(exam.id!)">
+                Obrisi
+              </button>
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+      } @else {
+      <div class="alert alert-info">Još uvek nema zakazanih ispita za ovaj predmet.</div>
+      }
+    </div>
+  </div>
+  } @else {
+  <div class="alert alert-info">Molimo izaberite predmet za zakazivanje ispita.</div>
+  }
+</div>

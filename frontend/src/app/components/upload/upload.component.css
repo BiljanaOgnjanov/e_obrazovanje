@@ -1,0 +1,8 @@
+.card {
+  border-radius: 0.75rem;
+}
+
+img {
+  max-height: 200px;
+  object-fit: cover;
+}

@@ -9,36 +9,32 @@ import { RouterModule } from '@angular/router';
 })
 export class SidebarComponent {
   private auth = inject(AuthService);
-  user = this.auth.currentUser;
+  user = this.auth.currentUser();
 
   menuItems = computed(() => {
-    const u = this.user();
-    if (!u) return [];
+    if (!this.user) return [];
 
-    switch (u.role) {
-      case 'admin':
+    switch (this.user.userType) {
+      case 'ADMIN':
         return [
-          { label: 'Dodavanje i Azuriranje Studenata', path: '' },
-          { label: 'Dodavanje i Azuriranje Profesora', path: '' },
-          { label: 'Dodavanje i Azuriranje Predmeta', path: '' },
-          { label: 'Pregled i Azuriranje Svih Funkcija', path: '' },
+          { label: 'Dodavanje i Azuriranje Koristnika', path: 'admin/upravljanje-korisnicima' },
+          { label: 'Upravljanje Predmetima', path: 'admin/upravljanje-predmetima' },
         ];
-      case 'student':
+      case 'STUDENT':
         return [
-          { label: 'Licni Podaci', path: '' },
-          { label: 'Dokumenti', path: '' },
-          { label: 'Ispiti', path: '' },
-          { label: 'Prijava i Odjava Ispita', path: '' },
-          { label: 'Finansijska Kartica', path: '' },
-          { label: 'Predmeti', path: '' },
+          { label: 'Licni Podaci', path: 'student/pocetna' },
+          { label: 'Dokumenti', path: 'student/dokumenti' },
+          { label: 'Ispiti', path: 'student/ispiti' },
+          { label: 'Prijava i Odjava Ispita', path: 'student/prijava-ispita' },
+          { label: 'Finansijska Kartica', path: 'student/finansijska-kartica' },
+          { label: 'Predmeti', path: 'student/predmeti' },
         ];
-      case 'profesor':
+      case 'PROFESSOR':
         return [
-          { label: 'Licni Podaci', path: '' },
-          { label: 'Predmeti', path: '' },
-          { label: 'Zkazivanje Ispita', path: '' },
-          { label: 'Zkazivanje Ispita', path: '' },
-          { label: 'Ocena Ispita', path: '' },
+          { label: 'Licni Podaci', path: 'professor/pocetna' },
+          { label: 'Predmeti', path: 'professor/predmeti' },
+          { label: 'Zakazivanje Ispita', path: 'professor/zakazivanje-ispita' },
+          { label: 'Ocena Ispita', path: 'professor/ocena' },
         ];
       default:
         return [];

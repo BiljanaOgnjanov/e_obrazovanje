@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -10,16 +10,17 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule, FormsModule],
 })
 export class LoginComponent {
-  username = '';
+  private auth = inject(AuthService);
+  private router = inject(Router);
+  email = '';
   password = '';
   error = false;
 
-  constructor(private auth: AuthService, private router: Router) {}
-
-  onLogin() {
-    const success = this.auth.login(this.username, this.password);
-    if (success) {
-      const role = this.auth.currentUser()?.role;
+  async onLogin() {
+    const user = await this.auth.login(this.email, this.password);
+    console.log(user);
+    if (user) {
+      const role = user.userType.toLowerCase();
 
       this.router.navigate([`/${role}`]);
     } else {

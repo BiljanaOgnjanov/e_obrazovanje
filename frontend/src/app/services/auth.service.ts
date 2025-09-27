@@ -1,10 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
+import { environment } from '../environments/environment';
 
-export type Role = 'admin' | 'student' | 'profesor';
+import { firstValueFrom } from 'rxjs';
+
+export type UserType = 'ADMIN' | 'STUDENT' | 'PROFESSOR';
 
 export interface User {
-  username: string;
-  role: Role;
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  userType: UserType;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -12,25 +19,23 @@ export class AuthService {
   private _currentUser = signal<User | null>(null);
   currentUser = this._currentUser.asReadonly();
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.loadUserFromStorage();
   }
 
-  login(username: string, password: string): boolean {
-    const users: Record<string, { password: string; role: Role }> = {
-      s: { password: 's', role: 'student' },
-    };
+  async login(email: string, password: string): Promise<User | null> {
+    const record = this.http.post(environment.apiUrl + '/auth/login', { email, password });
 
-    const record = users[username];
-
-    if (record && record.password === password) {
-      const user: User = { username, role: record.role };
-      this._currentUser.set(user);
-      // localStorage.setItem('user', JSON.stringify(user));
-      return true;
+    try {
+      const response = await firstValueFrom(record);
+      this._currentUser.set(response as User);
+      localStorage.setItem('user', JSON.stringify(response));
+      return response as User;
+    } catch (error) {
+      console.error('Login failed!', error);
     }
 
-    return false;
+    return null;
   }
 
   logout() {

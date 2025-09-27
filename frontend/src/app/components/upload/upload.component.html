@@ -1,0 +1,19 @@
+<div class="container py-3">
+  <div class="mb-3">
+    <input type="file" class="form-control" (change)="onFileSelected($event)" multiple />
+  </div>
+  @if (loading) {
+  <div class="alert alert-info">Učitavanje fajlova...</div>
+  } @if (!loading && uploadedFiles.length > 0) {
+  <ul class="list-group">
+    @for (file of uploadedFiles; track file.id; let i = $index) {
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+      <a [href]="getFileUrl(file)" target="_blank">{{ file.fileName }}</a>
+      <button class="btn btn-sm btn-outline-danger" (click)="deleteFile(file.id, i)">Obrisi</button>
+    </li>
+    }
+  </ul>
+  } @else if (!loading) {
+  <div class="alert alert-secondary">Još uvek nema uploadovanih fajlova.</div>
+  }
+</div>

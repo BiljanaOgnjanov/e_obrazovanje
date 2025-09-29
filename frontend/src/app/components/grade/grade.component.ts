@@ -95,6 +95,8 @@ export class GradeComponent implements OnInit {
         const students: Student[] = [];
 
         for (const booking of bookings) {
+          if (booking.status !== 'BOOKED') continue;
+
           try {
             const student = await firstValueFrom(
               this.studentService.getStudentById(booking.studentId)
@@ -131,12 +133,25 @@ export class GradeComponent implements OnInit {
 
     student.finalScore = test1 + test2 + attendance;
 
-    if (student.finalScore >= 51 && student.finalScore <= 60) student.finalGrade = 6;
-    else if (student.finalScore <= 70) student.finalGrade = 7;
-    else if (student.finalScore <= 80) student.finalGrade = 8;
-    else if (student.finalScore <= 90) student.finalGrade = 9;
-    else if (student.finalScore > 90) student.finalGrade = 10;
-    else student.finalGrade = 5;
+    switch (true) {
+      case student.finalScore >= 91:
+        student.finalGrade = 10;
+        break;
+      case student.finalScore >= 81:
+        student.finalGrade = 9;
+        break;
+      case student.finalScore >= 71:
+        student.finalGrade = 8;
+        break;
+      case student.finalScore >= 61:
+        student.finalGrade = 7;
+        break;
+      case student.finalScore >= 51:
+        student.finalGrade = 6;
+        break;
+      default:
+        student.finalGrade = 5;
+    }
   }
 
   saveGrade(student: Student) {

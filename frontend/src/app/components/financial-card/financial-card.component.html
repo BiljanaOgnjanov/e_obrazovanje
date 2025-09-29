@@ -16,7 +16,7 @@
         <tbody>
           @if (transactions.length > 0) { @for (t of transactions; track t.id) {
           <tr>
-            <td>{{ t.createdAt | date : 'dd.MM.yyyy HH:mm' }}</td>
+            <td>{{ t.createdAt | date : 'dd.MM.yyyy' }}</td>
             <td>
               <span class="badge" [class]="getBadgeClass(t.type)">
                 {{ getTypeLabel(t.type) }}

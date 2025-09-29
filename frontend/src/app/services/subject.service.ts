@@ -35,7 +35,7 @@ export class SubjectService {
   }
 
   getById(subjectId: string): Observable<Subject> {
-    return this.http.get<Subject>(`${this.apiUrl}/students/${subjectId}`, {});
+    return this.http.get<Subject>(`${this.apiUrl}/${subjectId}`, {});
   }
 
   getSubjectStudents(subjectId: string): Observable<Student[]> {

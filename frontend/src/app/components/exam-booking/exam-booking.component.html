@@ -1,0 +1,106 @@
+<div class="container-fluid py-4">
+  <div class="alert alert-info mb-4">
+    Trenutni balans: <strong>{{ balance }} RSD</strong>
+  </div>
+
+  <div class="card shadow-sm mb-5">
+    <div class="card-header bg-primary text-white">
+      <h5 class="mb-0">Moje prijave</h5>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Predmet</th>
+            <th>Mesec</th>
+            <th>Datum</th>
+            <th>Profesor</th>
+            <th>Status</th>
+            <th>Akcija</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (booking of upcomingBookings(); track booking.id) {
+          <tr>
+            <td>{{ booking.subject?.name || '-' }}</td>
+            <td>{{ booking.examMonth || '-' }}</td>
+            <td>{{ booking.examDate | date : 'dd.MM.yyyy' }}</td>
+            <td>
+              {{ booking.professor?.firstName }}
+              {{ booking.professor?.lastName }}
+            </td>
+            <td>
+              <span class="badge" [class]="getStatusClass(booking.status)">
+                {{ getStatusLabel(booking.status) }}
+              </span>
+            </td>
+            <td>
+              @if (booking.status === 'BOOKED') {
+              <button class="btn btn-sm btn-outline-danger" (click)="withdrawExam(booking.id)">
+                Otkazi Ispit
+              </button>
+              }
+            </td>
+          </tr>
+          } @if (bookings.length === 0) {
+          <tr>
+            <td colspan="6" class="text-center text-muted">Nema prijavljenih ispita</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card shadow-sm">
+    <div class="card-header bg-success text-white">
+      <h5 class="mb-0">Prijava ispita</h5>
+    </div>
+    <div class="card-body">
+      <div class="mb-3">
+        <label for="subjectSelect" class="form-label">Izaberite predmet</label>
+        <select
+          id="subjectSelect"
+          class="form-select"
+          [(ngModel)]="selectedSubjectId"
+          (ngModelChange)="onSelectSubject($event)"
+        >
+          <option value="">-- Odaberite predmet --</option>
+          @for (s of subjects; track s.id) {
+          <option [value]="s.id">{{ s.name }}</option>
+          }
+        </select>
+      </div>
+
+      @if (selectedSubjectId) {
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+          <thead>
+            <tr>
+              <th>Mesec</th>
+              <th>Datum</th>
+              <th>Akcija</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (exam of subjectExams; track exam.id) {
+            <tr>
+              <td>{{ exam.examMonth }}</td>
+              <td>{{ exam.examDate | date : 'dd.MM.yyyy' }}</td>
+              <td>
+                <button class="btn btn-sm btn-outline-primary" (click)="bookExam(exam.id)">
+                  Prijavi se
+                </button>
+              </td>
+            </tr>
+            } @if (subjectExams.length === 0) {
+            <tr>
+              <td colspan="3" class="text-center text-muted">Nema ispita za ovaj predmet</td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      }
+    </div>
+  </div>
+</div>

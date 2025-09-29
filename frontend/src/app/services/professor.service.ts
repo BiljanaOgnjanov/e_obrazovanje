@@ -40,7 +40,7 @@ export class ProfessorService {
   }
 
   getById(professorId: string): Observable<Professor> {
-    return this.http.get<Professor>(`${this.apiUrl}/professors/${professorId}`, {});
+    return this.http.get<Professor>(`${this.apiUrl}/${professorId}`, {});
   }
 
   getProfessorSubjects(professorId: string): Observable<Subject[]> {

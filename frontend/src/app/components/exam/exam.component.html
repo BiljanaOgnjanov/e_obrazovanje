@@ -1,0 +1,90 @@
+<div class="container-fluid py-4">
+  <div class="btn-group mb-3" role="group">
+    <button
+      class="btn btn-outline-primary"
+      [class.active]="view === 'current'"
+      (click)="setView('current')"
+    >
+      Aktivni
+    </button>
+    <button
+      class="btn btn-outline-success"
+      [class.active]="view === 'passed'"
+      (click)="setView('passed')"
+    >
+      Polozeni
+    </button>
+    <button
+      class="btn btn-outline-danger"
+      [class.active]="view === 'failed'"
+      (click)="setView('failed')"
+    >
+      Nepolozeni
+    </button>
+    <button
+      class="btn btn-outline-warning"
+      [class.active]="view === 'canceled'"
+      (click)="setView('canceled')"
+    >
+      Otkazani
+    </button>
+  </div>
+
+  <div class="card shadow-sm">
+    <div
+      class="card-header text-white"
+      [class.bg-primary]="view === 'current'"
+      [class.bg-success]="view === 'passed'"
+      [class.bg-danger]="view === 'failed'"
+      [class.bg-warning]="view === 'canceled'"
+    >
+      <h5 class="mb-0">{{ getTableTitle() }}</h5>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-hover align-middle mb-0">
+        <thead>
+          <tr>
+            <th>Predmet</th>
+            <th>Mesec</th>
+            <th>Datum</th>
+            <th>Profesor</th>
+            @if(showGrade(filteredBookings()[0])) {
+            <th>Ocena</th>
+            }
+          </tr>
+        </thead>
+        <tbody>
+          @for(booking of filteredBookings(); track booking.id) {
+          <tr>
+            <td>{{ booking.subject?.name || '-' }}</td>
+            <td>{{ booking.examMonth || '-' }}</td>
+            <td>{{ booking.examDate | date : 'dd.MM.yyyy' }}</td>
+            <td>{{ booking.professor?.firstName }} {{ booking.professor?.lastName }}</td>
+            @if(showGrade(booking)) {
+            <td>
+              <span
+                class="badge"
+                [class.bg-success]="booking.status === 'PASSED'"
+                [class.bg-danger]="booking.status === 'FAILED'"
+              >
+                {{ booking.grade || '-' }}
+              </span>
+            </td>
+            }
+          </tr>
+          } @if(filteredBookings().length === 0) {
+          <tr>
+            <td
+              [attr.colspan]="showGrade(filteredBookings()[0]) ? 5 : 4"
+              class="text-center text-muted"
+            >
+              Nema ispita u ovoj kategoriji
+            </td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

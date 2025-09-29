@@ -33,8 +33,9 @@ export class ProfileComponent {
       this.professorService.update(this.user.id, this.editing).subscribe({
         next: () => {
           alert('Profil uspešno ažuriran!');
-          this.user = { ...this.user, ...this.editing };
+          this.auth.updateUser(this.editing);
           this.closeModal();
+          window.location.reload();
         },
         error: (err) => {
           console.error('Greška pri ažuriranju profila:', err);

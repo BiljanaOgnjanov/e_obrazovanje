@@ -23,6 +23,11 @@ export class AuthService {
     this.loadUserFromStorage();
   }
 
+  updateUser(user: User) {
+    this._currentUser.set(user);
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
   async login(email: string, password: string): Promise<User | null> {
     const record = this.http.post(environment.apiUrl + '/auth/login', { email, password });
 

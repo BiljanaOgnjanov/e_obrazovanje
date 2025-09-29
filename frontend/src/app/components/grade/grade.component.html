@@ -82,7 +82,11 @@
               />
             </td>
             <td>{{ student.finalScore }}</td>
+            @if (student.finalGrade == 5) {
+            <td class="text-danger">Nije polozio</td>
+            } @else {
             <td>{{ student.finalGrade }}</td>
+            }
             <td>
               <button class="btn btn-sm btn-success" (click)="saveGrade(student)">Sačuvaj</button>
             </td>

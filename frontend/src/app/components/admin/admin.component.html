@@ -122,7 +122,6 @@
           @if (activeTab === 'students') {
           <input class="form-control mb-2" [(ngModel)]="editing.firstName" placeholder="Ime" />
           <input class="form-control mb-2" [(ngModel)]="editing.lastName" placeholder="Prezime" />
-          <input class="form-control mb-2" [(ngModel)]="editing.email" placeholder="Email" />
           <input
             class="form-control mb-2"
             [(ngModel)]="editing.studentNumber"
@@ -130,6 +129,7 @@
           />
           <input class="form-control mb-2" [(ngModel)]="editing.studyProgram" placeholder="Smer" />
           @if (!editing?.id) {
+          <input class="form-control mb-2" [(ngModel)]="editing.email" placeholder="Email" />
           <input
             class="form-control mb-2"
             [(ngModel)]="editing.password"
@@ -139,15 +139,15 @@
           } } @if (activeTab === 'professors') {
           <input class="form-control mb-2" [(ngModel)]="editing.firstName" placeholder="Ime" />
           <input class="form-control mb-2" [(ngModel)]="editing.lastName" placeholder="Prezime" />
-          <input class="form-control mb-2" [(ngModel)]="editing.email" placeholder="Email" />
           @if (!editing?.id) {
+          <input class="form-control mb-2" [(ngModel)]="editing.email" placeholder="Email" />
           <input
             class="form-control mb-2"
             [(ngModel)]="editing.password"
             type="password"
             placeholder="Lozinka"
           />
-          }
+          } @else { }
           <select class="form-select mb-2" [(ngModel)]="editing.role" value="TEACHER">
             <option value="TEACHER">Profesor</option>
             <option value="ASSISTENT">Asistent</option>

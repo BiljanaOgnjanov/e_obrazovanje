@@ -35,6 +35,11 @@ public class ExamController {
         return ResponseEntity.ok(examService.updateExam(examId, data));
     }
 
+    @GetMapping("/exam/{examId}")
+    public ResponseEntity<ExamDto> getExamById(@PathVariable UUID examId) {
+        return ResponseEntity.ok(examService.getExamById(examId));
+    }
+
     @GetMapping("/course/{courseId}")
     public ResponseEntity<List<ExamDto>> getExamsForCourse(@PathVariable UUID courseId) {
         return ResponseEntity.ok(examService.getExamsForCourse(courseId));

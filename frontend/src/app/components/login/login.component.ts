@@ -18,7 +18,7 @@ export class LoginComponent {
 
   async onLogin() {
     const user = await this.auth.login(this.email, this.password);
-    console.log(user);
+
     if (user) {
       const role = user.userType.toLowerCase();
 

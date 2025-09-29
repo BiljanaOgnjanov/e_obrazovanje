@@ -81,6 +81,13 @@ public class ExamService {
             .toList();
     }
 
+    public ExamDto getExamById(UUID examId) {
+        Exam exam = examRepository.findById(examId)
+            .orElseThrow(() -> new ResourceNotFoundException("Exam not found."));
+
+        return toDto(examRepository.save(exam));
+    }
+
     private ExamDto toDto(Exam exam) {
         return new ExamDto(
             exam.getId(),

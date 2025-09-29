@@ -64,7 +64,7 @@
           @for (exam of selectedSubject.exams; track exam.id) {
           <tr>
             <td>{{ exam.examMonth }}</td>
-            <td>{{ exam.examDate }}</td>
+            <td>{{ exam.examDate | date : 'dd.MM.yyyy' }}</td>
             <td>
               <button class="btn btn-sm btn-outline-danger" (click)="removeExam(exam.id!)">
                 Obrisi

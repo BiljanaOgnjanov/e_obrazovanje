@@ -59,12 +59,13 @@ export class ExamBookingService {
   getSubjectExams(subjectId: string): Observable<Exam[]> {
     return this.http.get<Exam[]>(`${this.apiUrl}/exams/course/${subjectId}`);
   }
+
   book(examId: string, studentId: string): Observable<Exam> {
     return this.http.post<Exam>(`${this.apiUrl}/bookings`, { examId, studentId });
   }
 
   cancel(examId: string, studentId: string): Observable<Exam> {
-    return this.http.post<Exam>(`${this.apiUrl}/bookings/${examId}/students/${studentId}`, {});
+    return this.http.delete<Exam>(`${this.apiUrl}/bookings/${examId}/students/${studentId}`, {});
   }
 
   grade(grade: Grade, examId: string): Observable<Grade> {

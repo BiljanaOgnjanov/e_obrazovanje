@@ -29,6 +29,14 @@ export class ExamService {
     return this.http.get<Exam[]>(this.apiUrl);
   }
 
+  getById(examId: string): Observable<Exam> {
+    return this.http.get<Exam>(`${this.apiUrl}/exam/${examId}`);
+  }
+
+  getSubjectExams(subjectId: string): Observable<Exam[]> {
+    return this.http.get<Exam[]>(`${this.apiUrl}/course/${subjectId}`);
+  }
+
   getProfessorExams(professorId: string): Observable<Exam[]> {
     return this.http.get<Exam[]>(`${this.apiUrl}/professor/${professorId}`);
   }

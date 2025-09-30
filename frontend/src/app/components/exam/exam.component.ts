@@ -9,6 +9,7 @@ import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-exam',
+  standalone: true,
   imports: [DatePipe],
   templateUrl: './exam.component.html',
 })

@@ -22,6 +22,7 @@ interface Subject {
 
 @Component({
   selector: 'app-schedule',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './schedule.component.html',
 })

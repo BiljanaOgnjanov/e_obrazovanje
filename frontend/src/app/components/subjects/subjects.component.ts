@@ -10,6 +10,7 @@ import { StudentService } from '../../services/student.service';
 
 @Component({
   selector: 'app-subjects',
+  standalone: true,
   imports: [RouterModule, CommonModule, FormsModule, TableComponent],
   styleUrls: ['./subjects.component.css'],
   templateUrl: './subjects.component.html',

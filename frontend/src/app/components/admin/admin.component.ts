@@ -10,6 +10,7 @@ import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-admin',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './admin.component.html',
 })

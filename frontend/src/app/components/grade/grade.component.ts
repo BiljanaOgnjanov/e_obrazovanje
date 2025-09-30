@@ -35,6 +35,7 @@ interface Subject {
 
 @Component({
   selector: 'app-grade',
+  standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './grade.component.html',
   styleUrls: ['./grade.component.css'],

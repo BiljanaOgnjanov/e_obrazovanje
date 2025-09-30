@@ -11,6 +11,7 @@ import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-exam-booking',
+  standalone: true,
   imports: [DatePipe, FormsModule],
   templateUrl: './exam-booking.component.html',
 })

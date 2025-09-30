@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
+  standalone: true,
   imports: [RouterModule],
   templateUrl: './sidebar.component.html',
 })
@@ -18,7 +19,6 @@ export class SidebarComponent {
       case 'ADMIN':
         return [
           { label: 'Dodavanje i Azuriranje Koristnika', path: 'admin/upravljanje-korisnicima' },
-          { label: 'Upravljanje Predmetima', path: 'admin/upravljanje-predmetima' },
         ];
       case 'STUDENT':
         return [

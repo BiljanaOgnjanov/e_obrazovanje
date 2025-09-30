@@ -3,14 +3,12 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { SubjectsComponent } from './components/subjects/subjects.component';
 import { ProfileComponent } from './components/profile/profile.component';
-// import { ExamComponent } from './components/exam/exam.component';
 import { UploadComponent } from './components/upload/upload.component';
 import { GradeComponent } from './components/grade/grade.component';
 import { ScheduleComponent } from './components/schedule/schedule.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { ExamBookingComponent } from './components/exam-booking/exam-booking.component';
 import { FinancialCardComponent } from './components/financial-card/financial-card.component';
-import { SubjectManagementComponent } from './components/subject-management/subject-management.component';
 import { ExamComponent } from './components/exam/exam.component';
 
 export const routes: Routes = [
@@ -22,7 +20,6 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'upravljanje-korisnicima', pathMatch: 'full' },
       { path: 'upravljanje-korisnicima', component: AdminComponent },
-      { path: 'upravljanje-predmetima', component: SubjectManagementComponent },
     ],
   },
   {

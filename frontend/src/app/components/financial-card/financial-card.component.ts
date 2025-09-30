@@ -5,6 +5,7 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-financial-card',
+  standalone: true,
   imports: [DatePipe, CurrencyPipe],
   templateUrl: './financial-card.component.html',
 })

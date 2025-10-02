@@ -19,6 +19,9 @@ export class SidebarComponent {
       case 'ADMIN':
         return [
           { label: 'Dodavanje i Azuriranje Koristnika', path: 'admin/upravljanje-korisnicima' },
+          { label: 'Prikaz i brisanje predmeta', path: 'admin/upravljanje-predmetima' },
+          { label: 'Azuriranje Ispita', path: 'admin/azuriranje-ispita' },
+          { label: 'Istoraija Transakcija', path: 'admin/istorija-transakcija' },
         ];
       case 'STUDENT':
         return [

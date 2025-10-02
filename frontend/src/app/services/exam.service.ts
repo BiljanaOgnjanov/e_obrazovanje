@@ -45,6 +45,10 @@ export class ExamService {
     return this.http.post<Exam>(this.apiUrl, exam);
   }
 
+  update(examId: string, exam: Partial<Exam>): Observable<Exam> {
+    return this.http.put<Exam>(`${this.apiUrl}/${examId}`, exam);
+  }
+
   delete(examId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${examId}`);
   }

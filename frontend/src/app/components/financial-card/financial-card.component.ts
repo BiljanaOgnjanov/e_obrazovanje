@@ -11,11 +11,10 @@ import { CurrencyPipe, DatePipe } from '@angular/common';
 })
 export class FinancialCardComponent implements OnInit {
   private auth = inject(AuthService);
+  private financialCardService = inject(FinancialCardService);
   user = this.auth.currentUser();
   studentId = this.user?.id!;
   transactions: Transactions[] = [];
-
-  constructor(private financialCardService: FinancialCardService) {}
 
   ngOnInit() {
     this.loadData();
@@ -27,7 +26,7 @@ export class FinancialCardComponent implements OnInit {
         this.transactions = data;
       },
       error: (err) => {
-        console.error('Error fetching transactions', err);
+        console.error('Greska pri dohvatanju transakcija:', err);
       },
     });
   }

@@ -10,6 +10,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { ExamBookingComponent } from './components/exam-booking/exam-booking.component';
 import { FinancialCardComponent } from './components/financial-card/financial-card.component';
 import { ExamComponent } from './components/exam/exam.component';
+import { ExamManagementComponent } from './components/exam-management/exam-management';
+import { AdminFinancialCardComponent } from './components/admin-financial-card/admin-financial-card.component';
+import { SubjectManagementComponent } from './components/subject-management/subject-management.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,6 +23,9 @@ export const routes: Routes = [
     children: [
       { path: '', redirectTo: 'upravljanje-korisnicima', pathMatch: 'full' },
       { path: 'upravljanje-korisnicima', component: AdminComponent },
+      { path: 'upravljanje-predmetima', component: SubjectManagementComponent },
+      { path: 'azuriranje-ispita', component: ExamManagementComponent },
+      { path: 'istorija-transakcija', component: AdminFinancialCardComponent },
     ],
   },
   {

@@ -1,0 +1,44 @@
+<div class="container-fuid py-2">
+  <h2>Upravljanje predmetima</h2>
+  <div class="mb-3 d-flex align-items-center">
+    <label class="me-2 fw-bold">Predmet:</label>
+    <select
+      class="form-select w-25 me-3"
+      [(ngModel)]="selectedCourse"
+      (change)="selectCourse(selectedCourse!)"
+    >
+      @for (course of courses; track course.id) {
+      <option [ngValue]="course">{{ course.name }}</option>
+      }
+    </select>
+
+    <div class="btn-group ms-auto">
+      <button
+        class="btn btn-outline-dark"
+        [class.active]="activeTab === 'students'"
+        (click)="activeTab = 'students'; loadCourseData()"
+      >
+        Studenti
+      </button>
+      <button
+        class="btn btn-outline-dark"
+        [class.active]="activeTab === 'professors'"
+        (click)="activeTab = 'professors'; loadCourseData()"
+      >
+        Profesori
+      </button>
+    </div>
+  </div>
+
+  <app-table
+    [title]="activeTab === 'students' ? 'Studenti' : 'Profesori'"
+    [columns]="getColumns()"
+    [data]="getData()"
+    [searchable]="true"
+    (remove)="removeEntity($event.id)"
+  >
+    <ng-template #customTemplate let-row>
+      <button class="btn btn-sm btn-outline-danger" (click)="removeEntity(row.id)">Obrisi</button>
+    </ng-template>
+  </app-table>
+</div>

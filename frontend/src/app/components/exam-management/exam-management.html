@@ -1,0 +1,69 @@
+<div class="container-fluid py-2">
+  <div class="mb-4">
+    <label class="form-label fw-bold">Izaberi profesora:</label>
+    <select
+      class="form-select"
+      [(ngModel)]="selectedProfessorId"
+      (change)="onSelectProfessor(selectedProfessorId!)"
+    >
+      <option [ngValue]="null" disabled>-- Odaberi profesora --</option>
+      @for (prof of professors; track prof.id) {
+      <option [ngValue]="prof.id">{{ prof.firstName }} {{ prof.lastName }}</option>
+      }
+    </select>
+  </div>
+  @if (exams.length > 0) {
+  <div class="card shadow-sm">
+    <div class="card-header">
+      <h5 class="mb-0">Ispiti profesora</h5>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-hover align-middle">
+        <thead class="table-dark">
+          <tr>
+            <th>Datum ispita</th>
+            <th>Mesec</th>
+            <th>Akcije</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (exam of exams; track exam.id) {
+          <tr>
+            @if (!editingExam || editingExam.id !== exam.id) {
+            <td>{{ exam.examDate | date : 'dd.MM.yyyy' }}</td>
+            <td>{{ exam.examMonth }}</td>
+            <td>
+              <button class="btn btn-sm btn-primary" (click)="startEdit(exam)">Izmeni</button>
+            </td>
+            } @else {
+            <td>
+              <input
+                type="date"
+                class="form-control"
+                [(ngModel)]="editingExam.examDate"
+                name="date-{{ exam.id }}"
+              />
+            </td>
+            <td>
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="editingExam.examMonth"
+                name="month-{{ exam.id }}"
+              />
+            </td>
+            <td>
+              <button class="btn btn-sm btn-success me-2" (click)="saveEdit()">Sačuvaj</button>
+              <button class="btn btn-sm btn-secondary" (click)="cancelEdit()">Otkaži</button>
+            </td>
+            }
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+  } @else if (selectedProfessorId) {
+  <div class="alert alert-info">Izabrani profesor još uvek nema zakazane ispite.</div>
+  }
+</div>

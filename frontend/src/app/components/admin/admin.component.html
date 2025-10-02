@@ -97,7 +97,7 @@
               } } @else if (col.value.toLowerCase().includes('espb')) {
               <span class="badge bg-primary">{{ row[col.value] }}</span>
               } @else {
-              {{ row[col.value] }}
+              {{ roleLabels[row[col.value]] || row[col.value] }}
               }
             </td>
             }

@@ -85,6 +85,12 @@ export class AdminComponent implements OnInit {
     }
   }
 
+  roleLabels: Record<string, string> = {
+    TEACHER: 'Profesor',
+    ASSISTENT: 'Asistent',
+    DEMONSTRATOR: 'Demonstrator',
+  };
+
   getData(): any[] {
     if (this.activeTab === 'students') {
       return this.students.map((s) => ({

@@ -10,8 +10,8 @@ export interface ProfessorRole {
 
 export interface Professor {
   id: string;
-  fristname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   role: ProfessorRole;
   passowrd: number;
   courses?: Subject[];
@@ -45,5 +45,9 @@ export class ProfessorService {
 
   getProfessorSubjects(professorId: string): Observable<Subject[]> {
     return this.http.get<Subject[]>(`${this.apiUrl}/${professorId}/courses`, {});
+  }
+
+  getAllProfessors(): Observable<Professor[]> {
+    return this.http.get<Professor[]>(`${this.apiUrl}`, {});
   }
 }

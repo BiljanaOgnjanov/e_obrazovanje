@@ -1,10 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Exam, ExamService } from '../../services/exam.service';
 import { ProfessorService } from '../../services/professor.service';
-import { parse } from 'date-fns';
 
 interface NewExam {
   id: string;
@@ -24,12 +23,14 @@ interface Subject {
   selector: 'app-schedule',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  providers: [DatePipe],
   templateUrl: './schedule.component.html',
 })
 export class ScheduleComponent implements OnInit {
   private examService = inject(ExamService);
   private professorService = inject(ProfessorService);
   private auth = inject(AuthService);
+  private datePipe = inject(DatePipe);
 
   user = this.auth.currentUser();
 
@@ -93,11 +94,11 @@ export class ScheduleComponent implements OnInit {
   addExam() {
     if (!this.selectedSubject) return;
 
-    const localDate = parse(this.newExam.examDate, 'yyyy-MM-dd', new Date());
+    const examDateLocale = this.datePipe.transform(this.newExam.examDate, 'yyyy-MM-ddTHH:mm:ss');
     const exam: NewExam = {
       ...this.newExam,
       courseId: this.selectedSubject.id,
-      examDate: localDate.toISOString(),
+      examDate: examDateLocale!,
     };
 
     this.examService.create(exam).subscribe({
